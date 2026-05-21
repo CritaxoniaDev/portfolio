@@ -24,12 +24,20 @@ export const Navigation = () => {
 
     const toggleRef = useRef<HTMLButtonElement>(null);
 
-    // ── Scroll-aware navigation
+    // ── Scroll-aware navigation (optimized)
     useEffect(() => {
-        const onScroll = () => setScrolled(window.scrollY > 24);
+        const onScroll = () => {
+            const isScrolled = window.scrollY > 24;
+            setScrolled((prev) => (prev !== isScrolled ? isScrolled : prev));
+        };
+
         onScroll();
+
         window.addEventListener('scroll', onScroll, { passive: true });
-        return () => window.removeEventListener('scroll', onScroll);
+
+        return () => {
+            window.removeEventListener('scroll', onScroll);
+        };
     }, []);
 
     // ── Active section tracking via IntersectionObserver
@@ -37,6 +45,7 @@ export const Navigation = () => {
         const sections = links
             .map((l) => document.querySelector(l.href))
             .filter((el): el is Element => !!el);
+
         if (sections.length === 0) return;
 
         const observer = new IntersectionObserver(
@@ -51,6 +60,7 @@ export const Navigation = () => {
         );
 
         sections.forEach((s) => observer.observe(s));
+
         return () => observer.disconnect();
     }, []);
 
@@ -64,22 +74,29 @@ export const Navigation = () => {
                     minute: '2-digit',
                     hour12: false,
                 });
+
                 setTime(formatter.format(new Date()));
             } catch {
-                /* noop */
+                // noop
             }
         };
+
         update();
         const id = setInterval(update, 30_000);
+
         return () => clearInterval(id);
     }, []);
 
-    // ── Lock body scroll when menu open
+    // ── Lock body scroll when menu open (FIXED)
     useEffect(() => {
-        const prev = document.body.style.overflow;
-        document.body.style.overflow = open ? 'hidden' : prev;
+        if (open) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = '';
+        }
+
         return () => {
-            document.body.style.overflow = prev;
+            document.body.style.overflow = '';
         };
     }, [open]);
 
@@ -103,8 +120,8 @@ export const Navigation = () => {
                 <div
                     aria-hidden="true"
                     className={`absolute inset-0 transition-all duration-500 ${scrolled
-                            ? 'border-b border-black/10 bg-[rgba(244,243,238,0.78)] backdrop-blur-md'
-                            : 'border-b border-transparent'
+                        ? 'border-b border-black/10 bg-[rgba(244,243,238,0.78)] backdrop-blur-md'
+                        : 'border-b border-transparent'
                         }`}
                 />
 
@@ -112,8 +129,8 @@ export const Navigation = () => {
                     {/* ── Top mono meta strip (desktop only) ── */}
                     <div
                         className={`hidden items-center justify-between gap-4 overflow-hidden px-12 font-mono text-[0.56rem] tracking-[0.18em] text-black/40 smallcaps transition-all duration-500 md:flex ${scrolled
-                                ? 'max-h-0 py-0 opacity-0'
-                                : 'max-h-8 py-2 opacity-100'
+                            ? 'max-h-0 py-0 opacity-0'
+                            : 'max-h-8 py-2 opacity-100'
                             }`}
                     >
                         <span className="flex items-center gap-3">
@@ -229,8 +246,8 @@ export const Navigation = () => {
             {/* ──────────────── Mobile menu overlay ──────────────── */}
             <div
                 className={`fixed inset-0 z-[90] overflow-hidden transition-all duration-500 md:hidden ${open
-                        ? 'pointer-events-auto opacity-100'
-                        : 'pointer-events-none opacity-0'
+                    ? 'pointer-events-auto opacity-100'
+                    : 'pointer-events-none opacity-0'
                     }`}
                 style={{ background: 'rgb(244, 243, 238)' }}
                 aria-hidden={!open}
