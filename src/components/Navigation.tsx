@@ -87,7 +87,7 @@ export const Navigation = () => {
         return () => clearInterval(id);
     }, []);
 
-    // ── Lock body scroll when menu open (FIXED)
+    // ── Lock body scroll when menu open
     useEffect(() => {
         if (open) {
             document.body.style.overflow = 'hidden';
@@ -120,7 +120,7 @@ export const Navigation = () => {
                 <div
                     aria-hidden="true"
                     className={`absolute inset-0 transition-all duration-500 ${scrolled
-                        ? 'border-b border-black/10 bg-[rgba(244,243,238,0.78)] backdrop-blur-md'
+                        ? 'border-b border-black/10 dark:border-white/10 bg-[rgba(244,243,238,0.78)] dark:bg-[rgba(13,12,10,0.78)] backdrop-blur-md'
                         : 'border-b border-transparent'
                         }`}
                 />
@@ -128,13 +128,13 @@ export const Navigation = () => {
                 <div className="relative">
                     {/* ── Top mono meta strip (desktop only) ── */}
                     <div
-                        className={`hidden items-center justify-between gap-4 overflow-hidden px-12 font-mono text-[0.56rem] tracking-[0.18em] text-black/40 smallcaps transition-all duration-500 md:flex ${scrolled
+                        className={`hidden items-center justify-between gap-4 overflow-hidden px-12 font-mono text-[0.56rem] tracking-[0.18em] text-black/40 dark:text-white/30 smallcaps transition-all duration-500 md:flex ${scrolled
                             ? 'max-h-0 py-0 opacity-0'
                             : 'max-h-8 py-2 opacity-100'
                             }`}
                     >
                         <span className="flex items-center gap-3">
-                            <span className="block h-px w-5 bg-black/25" />
+                            <span className="block h-px w-5 bg-black/25 dark:bg-white/20" />
                             Studio of One · Independent Practice
                         </span>
                         <span className="flex items-center gap-2">
@@ -143,18 +143,18 @@ export const Navigation = () => {
                         </span>
                         <span className="flex items-center gap-3">
                             Portfolio · Vol. 01 — MMXXIV
-                            <span className="block h-px w-5 bg-black/25" />
+                            <span className="block h-px w-5 bg-black/25 dark:bg-white/20" />
                         </span>
                     </div>
 
                     {/* ── Main nav row ── */}
-                    <div className="flex items-center justify-between gap-4 px-5 py-4 mix-blend-multiply sm:px-6 sm:py-5 md:px-12 md:py-4">
+                    <div className="flex items-center justify-between gap-4 px-5 py-4 sm:px-6 sm:py-5 md:px-12 md:py-4">
                         {/* Logo block */}
                         <a href="#" className="group flex items-center gap-3">
                             {/* Monogram mark with bracket ornaments */}
-                            <span className="relative flex h-7 w-7 shrink-0 items-center justify-center border border-black/40 transition-colors group-hover:border-black">
-                                <span className="absolute -top-1 -left-1 h-2 w-2 border-t border-l border-black" />
-                                <span className="absolute -bottom-1 -right-1 h-2 w-2 border-b border-r border-black" />
+                            <span className="relative flex h-7 w-7 shrink-0 items-center justify-center border border-black/40 dark:border-white/35 transition-colors group-hover:border-black dark:group-hover:border-white">
+                                <span className="absolute -top-1 -left-1 h-2 w-2 border-t border-l border-black dark:border-white" />
+                                <span className="absolute -bottom-1 -right-1 h-2 w-2 border-b border-r border-black dark:border-white" />
                                 <span className="font-black text-[0.78rem] leading-none">
                                     G
                                 </span>
@@ -163,7 +163,7 @@ export const Navigation = () => {
                                 <span className="text-[0.72rem] font-medium leading-none smallcaps">
                                     Gian Raphael Alcantara
                                 </span>
-                                <span className="font-serif-alt mt-1 hidden text-[0.72rem] italic leading-none text-black/45 sm:inline">
+                                <span className="font-serif-alt mt-1 hidden text-[0.72rem] italic leading-none text-black/45 dark:text-white/35 sm:inline">
                                     a studio of one
                                 </span>
                             </span>
@@ -180,7 +180,9 @@ export const Navigation = () => {
                                             className="group flex items-baseline gap-2 text-[0.72rem] smallcaps"
                                         >
                                             <span
-                                                className={`font-mono text-[0.58rem] leading-none tracking-[0.16em] transition-colors ${active ? 'text-black' : 'text-black/35'
+                                                className={`font-mono text-[0.58rem] leading-none tracking-[0.16em] transition-colors ${active
+                                                    ? 'text-black dark:text-white'
+                                                    : 'text-black/35 dark:text-white/30'
                                                     }`}
                                             >
                                                 {String(i + 1).padStart(2, '0')}
@@ -188,7 +190,7 @@ export const Navigation = () => {
                                             <span className="nav-link relative">
                                                 {l.label}
                                                 <span
-                                                    className={`absolute -bottom-1 left-0 block h-px bg-black transition-all duration-500 ${active ? 'w-full' : 'w-0'
+                                                    className={`absolute -bottom-1 left-0 block h-px bg-black dark:bg-white transition-all duration-500 ${active ? 'w-full' : 'w-0'
                                                         }`}
                                                     aria-hidden="true"
                                                 />
@@ -202,7 +204,7 @@ export const Navigation = () => {
                         {/* Status pill (desktop only) */}
                         <a
                             href="#contact"
-                            className="group hidden items-center gap-2 border border-black/30 px-3 py-1.5 font-mono text-[0.58rem] tracking-[0.18em] smallcaps transition-colors hover:bg-black hover:text-[rgb(244,243,238)] lg:flex"
+                            className="group hidden items-center gap-2 border border-black/30 dark:border-white/25 px-3 py-1.5 font-mono text-[0.58rem] tracking-[0.18em] smallcaps transition-colors hover:bg-black hover:text-[rgb(244,243,238)] dark:hover:bg-white dark:hover:text-[rgb(13,12,10)] lg:flex"
                         >
                             <span className="relative flex h-1.5 w-1.5">
                                 <span
@@ -230,11 +232,11 @@ export const Navigation = () => {
                             </span>
                             <span className="relative flex h-6 w-6 flex-col items-end justify-center gap-1.5">
                                 <span
-                                    className={`block h-px bg-black transition-all duration-300 ${open ? 'w-6 translate-y-[3.5px] rotate-45' : 'w-6'
+                                    className={`block h-px bg-black dark:bg-white transition-all duration-300 ${open ? 'w-6 translate-y-[3.5px] rotate-45' : 'w-6'
                                         }`}
                                 />
                                 <span
-                                    className={`block h-px bg-black transition-all duration-300 ${open ? 'w-6 -translate-y-[3.5px] -rotate-45' : 'w-4'
+                                    className={`block h-px bg-black dark:bg-white transition-all duration-300 ${open ? 'w-6 -translate-y-[3.5px] -rotate-45' : 'w-4'
                                         }`}
                                 />
                             </span>
@@ -245,11 +247,10 @@ export const Navigation = () => {
 
             {/* ──────────────── Mobile menu overlay ──────────────── */}
             <div
-                className={`fixed inset-0 z-[90] overflow-hidden transition-all duration-500 md:hidden ${open
+                className={`fixed inset-0 z-[90] overflow-hidden bg-[rgb(244,243,238)] dark:bg-[rgb(13,12,10)] transition-all duration-500 md:hidden ${open
                     ? 'pointer-events-auto opacity-100'
                     : 'pointer-events-none opacity-0'
                     }`}
-                style={{ background: 'rgb(244, 243, 238)' }}
                 aria-hidden={!open}
                 role="dialog"
                 aria-modal={open}
@@ -271,7 +272,7 @@ export const Navigation = () => {
 
                 {/* Vertical side label */}
                 <span
-                    className="vertical-rl absolute right-3 top-1/2 z-10 -translate-y-1/2 text-[0.6rem] text-black/40 smallcaps"
+                    className="vertical-rl absolute right-3 top-1/2 z-10 -translate-y-1/2 text-[0.6rem] text-black/40 dark:text-white/30 smallcaps"
                     style={{
                         opacity: open ? 1 : 0,
                         transition: `opacity 0.6s ${open ? '0.45s' : '0s'}`,
@@ -298,7 +299,7 @@ export const Navigation = () => {
 
                 {/* Top meta strip */}
                 <div
-                    className="absolute left-5 right-5 top-20 z-10 flex items-center justify-between gap-3 font-mono text-[0.58rem] tracking-[0.18em] text-black/45 smallcaps sm:left-6 sm:right-6"
+                    className="absolute left-5 right-5 top-20 z-10 flex items-center justify-between gap-3 font-mono text-[0.58rem] tracking-[0.18em] text-black/45 dark:text-white/30 smallcaps sm:left-6 sm:right-6"
                     style={{
                         opacity: open ? 1 : 0,
                         transform: open ? 'translateY(0)' : 'translateY(-10px)',
@@ -306,7 +307,7 @@ export const Navigation = () => {
                     }}
                 >
                     <span className="flex items-center gap-3">
-                        <span className="block h-px w-5 bg-black/30" />
+                        <span className="block h-px w-5 bg-black/30 dark:bg-white/20" />
                         Menu / 005 Sections
                     </span>
                     <span className="flex items-center gap-2">
@@ -320,16 +321,16 @@ export const Navigation = () => {
 
                 {/* Section label */}
                 <p
-                    className="absolute left-5 right-5 top-32 z-10 flex items-center gap-3 text-[0.7rem] smallcaps text-black/65 sm:left-6 sm:right-6"
+                    className="absolute left-5 right-5 top-32 z-10 flex items-center gap-3 text-[0.7rem] smallcaps text-black/65 dark:text-white/45 sm:left-6 sm:right-6"
                     style={{
                         opacity: open ? 1 : 0,
                         transform: open ? 'translateY(0)' : 'translateY(-10px)',
                         transition: `opacity 0.6s ${open ? '0.35s' : '0s'}, transform 0.6s ${open ? '0.35s' : '0s'}`,
                     }}
                 >
-                    <span className="block h-px w-8 bg-black/40" />
+                    <span className="block h-px w-8 bg-black/40 dark:bg-white/25" />
                     The Index
-                    <span className="font-serif-alt italic text-black/45">— choose a chapter</span>
+                    <span className="font-serif-alt italic text-black/45 dark:text-white/35">— choose a chapter</span>
                 </p>
 
                 {/* Link list */}
@@ -339,7 +340,7 @@ export const Navigation = () => {
                         return (
                             <li
                                 key={l.href}
-                                className="w-full border-b border-black/15 last:border-b-0"
+                                className="w-full border-b border-black/15 dark:border-white/10 last:border-b-0"
                                 style={{
                                     opacity: open ? 1 : 0,
                                     transform: open ? 'translateY(0)' : 'translateY(28px)',
@@ -352,7 +353,7 @@ export const Navigation = () => {
                                     className="group flex items-end justify-between gap-3 py-3 sm:py-4"
                                 >
                                     <div className="flex items-baseline gap-3 sm:gap-5">
-                                        <span className="font-mono text-[0.65rem] tracking-[0.18em] smallcaps text-black/45">
+                                        <span className="font-mono text-[0.65rem] tracking-[0.18em] smallcaps text-black/45 dark:text-white/30">
                                             {String(i + 1).padStart(2, '0')}
                                         </span>
                                         <span className="flex flex-col items-start">
@@ -366,20 +367,20 @@ export const Navigation = () => {
                                             >
                                                 {l.label}
                                             </span>
-                                            <span className="font-serif-alt mt-1 text-[0.78rem] italic text-black/45 sm:text-sm">
+                                            <span className="font-serif-alt mt-1 text-[0.78rem] italic text-black/45 dark:text-white/35 sm:text-sm">
                                                 — {l.description}
                                             </span>
                                         </span>
                                     </div>
 
                                     {active ? (
-                                        <span className="flex shrink-0 items-center gap-2 pb-3 font-mono text-[0.58rem] tracking-[0.18em] smallcaps text-black/65">
-                                            <span className="block h-1.5 w-1.5 rounded-full bg-black pulse-soft" />
+                                        <span className="flex shrink-0 items-center gap-2 pb-3 font-mono text-[0.58rem] tracking-[0.18em] smallcaps text-black/65 dark:text-white/55">
+                                            <span className="block h-1.5 w-1.5 rounded-full bg-black dark:bg-white pulse-soft" />
                                             here
                                         </span>
                                     ) : (
                                         <span
-                                            className="font-serif-alt pb-2 text-3xl italic text-black/30 transition-transform duration-500 group-hover:translate-x-1.5"
+                                            className="font-serif-alt pb-2 text-3xl italic text-black/30 dark:text-white/20 transition-transform duration-500 group-hover:translate-x-1.5"
                                             aria-hidden="true"
                                         >
                                             →
@@ -400,14 +401,14 @@ export const Navigation = () => {
                     }}
                 >
                     {/* Fin flourish */}
-                    <div className="mb-3 flex items-center gap-3 font-serif-alt italic text-black/45">
-                        <span className="block h-px flex-1 bg-black/20" />
+                    <div className="mb-3 flex items-center gap-3 font-serif-alt italic text-black/45 dark:text-white/35">
+                        <span className="block h-px flex-1 bg-black/20 dark:bg-white/15" />
                         <span className="text-base sm:text-lg">— fin de l'index —</span>
-                        <span className="block h-px flex-1 bg-black/20" />
+                        <span className="block h-px flex-1 bg-black/20 dark:bg-white/15" />
                     </div>
 
                     {/* Bottom meta */}
-                    <div className="flex items-center justify-between font-mono text-[0.6rem] tracking-[0.18em] text-black/40 smallcaps">
+                    <div className="flex items-center justify-between font-mono text-[0.6rem] tracking-[0.18em] text-black/40 dark:text-white/25 smallcaps">
                         <span>Est. 2019 · Independent</span>
                         <span>Portfolio · MMXXIV</span>
                     </div>

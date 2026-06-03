@@ -163,35 +163,35 @@ type LaptopProps = {
 const Laptop = ({ image, title, url }: LaptopProps) => (
     <div className="relative w-full">
         {/* ── LID / SCREEN ── */}
-        <div className="relative bg-[#0a0a0a] p-[10px] shadow-[6px_6px_0_rgba(10,10,10,0.12)] sm:p-[12px]">
+        <div className="relative bg-[#0a0a0a] dark:bg-[rgb(40,38,32)] p-[10px] shadow-[6px_6px_0_rgba(10,10,10,0.12)] dark:shadow-[6px_6px_0_rgba(240,239,233,0.08)] sm:p-[12px]">
             {/* Tiny camera dot on top bezel */}
             <span className="absolute left-1/2 top-[3px] block h-[3px] w-[3px] -translate-x-1/2 rounded-full bg-white/35 sm:top-[4px]" />
 
             {/* Screen interior */}
-            <div className="relative flex aspect-[16/10] flex-col overflow-hidden bg-[rgb(230,228,220)]">
+            <div className="relative flex aspect-[16/10] flex-col overflow-hidden bg-[rgb(230,228,220)] dark:bg-[rgb(28,26,22)]">
                 {/* Browser chrome */}
-                <div className="flex shrink-0 items-center gap-2 border-b border-black/15 bg-[rgb(240,238,230)] px-2.5 py-1.5 sm:gap-3 sm:px-3 sm:py-2">
+                <div className="flex shrink-0 items-center gap-2 border-b border-black/15 dark:border-white/10 bg-[rgb(240,238,230)] dark:bg-[rgb(34,32,28)] px-2.5 py-1.5 sm:gap-3 sm:px-3 sm:py-2">
                     {/* traffic lights */}
                     <div className="flex shrink-0 items-center gap-1 sm:gap-1.5">
-                        <span className="block h-[7px] w-[7px] rounded-full border border-black/30 sm:h-2 sm:w-2" />
-                        <span className="block h-[7px] w-[7px] rounded-full border border-black/30 sm:h-2 sm:w-2" />
-                        <span className="block h-[7px] w-[7px] rounded-full border border-black/30 sm:h-2 sm:w-2" />
+                        <span className="block h-[7px] w-[7px] rounded-full border border-black/30 dark:border-white/25 sm:h-2 sm:w-2" />
+                        <span className="block h-[7px] w-[7px] rounded-full border border-black/30 dark:border-white/25 sm:h-2 sm:w-2" />
+                        <span className="block h-[7px] w-[7px] rounded-full border border-black/30 dark:border-white/25 sm:h-2 sm:w-2" />
                     </div>
                     {/* URL bar */}
-                    <div className="mx-auto flex h-[18px] max-w-[70%] flex-1 items-center justify-center border border-black/20 bg-[rgb(244,243,238)] px-2 sm:h-5">
-                        <span className="block h-[5px] w-[5px] shrink-0 rotate-45 border-r border-t border-black/50 sm:h-[6px] sm:w-[6px]" />
-                        <span className="ml-1.5 truncate font-mono text-[0.5rem] tracking-[0.04em] text-black/55 sm:ml-2 sm:text-[0.58rem]">
+                    <div className="mx-auto flex h-[18px] max-w-[70%] flex-1 items-center justify-center border border-black/20 dark:border-white/15 bg-[rgb(244,243,238)] dark:bg-[rgb(22,21,18)] px-2 sm:h-5">
+                        <span className="block h-[5px] w-[5px] shrink-0 rotate-45 border-r border-t border-black/50 dark:border-white/40 sm:h-[6px] sm:w-[6px]" />
+                        <span className="ml-1.5 truncate font-mono text-[0.5rem] tracking-[0.04em] text-black/55 dark:text-white/40 sm:ml-2 sm:text-[0.58rem]">
                             {url}
                         </span>
                     </div>
                     {/* tiny menu hint */}
-                    <span className="hidden shrink-0 font-mono text-[0.55rem] tracking-[0.2em] text-black/35 sm:inline">
+                    <span className="hidden shrink-0 font-mono text-[0.55rem] tracking-[0.2em] text-black/35 dark:text-white/25 sm:inline">
                         ⋯
                     </span>
                 </div>
 
                 {/* The image */}
-                <div className="relative flex-1 overflow-hidden bg-[rgb(225,222,212)]">
+                <div className="relative flex-1 overflow-hidden bg-[rgb(225,222,212)] dark:bg-[rgb(22,21,18)]">
                     <img
                         src={image}
                         alt={`Screenshot of ${title}`}
@@ -205,7 +205,7 @@ const Laptop = ({ image, title, url }: LaptopProps) => (
                     {/* Subtle vignette / scanline texture for ink-on-paper feel */}
                     <div
                         aria-hidden="true"
-                        className="pointer-events-none absolute inset-0 mix-blend-multiply opacity-[0.04]"
+                        className="pointer-events-none absolute inset-0 mix-blend-multiply dark:mix-blend-screen opacity-[0.04]"
                         style={{
                             backgroundImage:
                                 "url(\"data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>\")",
@@ -221,19 +221,19 @@ const Laptop = ({ image, title, url }: LaptopProps) => (
         {/* ── BASE — trapezoid slightly wider than the lid ── */}
         <div className="relative mx-auto" style={{ width: '105%' }}>
             <div
-                className="h-[10px] bg-[#0a0a0a] sm:h-[12px]"
+                className="h-[10px] bg-[#0a0a0a] dark:bg-[rgb(40,38,32)] sm:h-[12px]"
                 style={{ clipPath: 'polygon(2.5% 0%, 97.5% 0%, 100% 100%, 0% 100%)' }}
             />
             {/* Front edge notch — the dip where you'd open the lid */}
             <div
                 aria-hidden="true"
-                className="absolute left-1/2 top-[1px] h-[3px] w-[18%] -translate-x-1/2 bg-[rgb(240,238,230)]"
+                className="absolute left-1/2 top-[1px] h-[3px] w-[18%] -translate-x-1/2 bg-[rgb(244,243,238)] dark:bg-[rgb(13,12,10)]"
                 style={{ clipPath: 'polygon(15% 0, 85% 0, 75% 100%, 25% 100%)' }}
             />
             {/* Soft shadow beneath laptop on the "paper" */}
             <div
                 aria-hidden="true"
-                className="mx-auto mt-1 h-[2px] w-[92%] bg-black/15 blur-[1px]"
+                className="mx-auto mt-1 h-[2px] w-[92%] bg-black/15 dark:bg-white/10 blur-[1px]"
             />
         </div>
     </div>
@@ -253,20 +253,20 @@ const ProjectCard = ({ project, index, total }: ProjectCardProps) => {
     return (
         <article className="relative">
             {/* ── Card top meta strip ── */}
-            <header className="mb-6 flex flex-wrap items-end justify-between gap-x-6 gap-y-3 border-b border-black/15 pb-3 sm:mb-8">
-                <div className="flex items-center gap-3 font-mono text-[0.62rem] leading-none tracking-[0.18em] text-black/45 smallcaps">
-                    <span className="block h-px w-5 bg-black/30" />
+            <header className="mb-6 flex flex-wrap items-end justify-between gap-x-6 gap-y-3 border-b border-black/15 dark:border-white/10 pb-3 sm:mb-8">
+                <div className="flex items-center gap-3 font-mono text-[0.62rem] leading-none tracking-[0.18em] text-black/45 dark:text-white/30 smallcaps">
+                    <span className="block h-px w-5 bg-black/30 dark:bg-white/20" />
                     <span>Plate {plateNum} / {totalNum}</span>
                 </div>
 
                 <div className="flex flex-wrap items-center gap-2 sm:gap-3">
                     {/* Highlight tag */}
-                    <span className="inline-flex items-center gap-1.5 border border-black/70 bg-[rgb(240,238,230)] px-2 py-0.5 font-mono text-[0.58rem] leading-none tracking-[0.16em] text-black smallcaps shadow-[2px_2px_0_rgba(10,10,10,0.85)]">
+                    <span className="inline-flex items-center gap-1.5 border border-black/70 dark:border-white/50 bg-[rgb(240,238,230)] dark:bg-[rgb(22,21,18)] px-2 py-0.5 font-mono text-[0.58rem] leading-none tracking-[0.16em] text-black dark:text-white smallcaps shadow-[2px_2px_0_rgba(10,10,10,0.85)] dark:shadow-[2px_2px_0_rgba(240,239,233,0.25)]">
                         <span className="text-[0.7rem] leading-none">✦</span>
                         {project.highlight}
                     </span>
                     {/* Category stamp */}
-                    <span className="inline-flex items-center font-mono text-[0.58rem] leading-none tracking-[0.2em] text-black/55 smallcaps">
+                    <span className="inline-flex items-center font-mono text-[0.58rem] leading-none tracking-[0.2em] text-black/55 dark:text-white/40 smallcaps">
                         Filed under — {project.category}
                     </span>
                 </div>
@@ -280,7 +280,7 @@ const ProjectCard = ({ project, index, total }: ProjectCardProps) => {
                         }`}
                 >
                     {/* Marginalia above the laptop */}
-                    <div className="mb-4 flex items-center justify-between gap-3 font-mono text-[0.58rem] leading-none tracking-[0.18em] text-black/40 smallcaps">
+                    <div className="mb-4 flex items-center justify-between gap-3 font-mono text-[0.58rem] leading-none tracking-[0.18em] text-black/40 dark:text-white/25 smallcaps">
                         <span className="flex items-center gap-2">
                             <span className="relative flex h-1.5 w-1.5">
                                 <span
@@ -308,7 +308,7 @@ const ProjectCard = ({ project, index, total }: ProjectCardProps) => {
                     </div>
 
                     {/* Caption beneath the laptop */}
-                    <p className="mt-4 text-center font-serif-alt text-sm italic leading-tight text-black/55 sm:text-base">
+                    <p className="mt-4 text-center font-serif-alt text-sm italic leading-tight text-black/55 dark:text-white/40 sm:text-base">
                         — {project.title}, on the screen.
                     </p>
                 </div>
@@ -331,8 +331,8 @@ const ProjectCard = ({ project, index, total }: ProjectCardProps) => {
 
                     {/* Title */}
                     <div className="relative z-10">
-                        <p className="mb-3 flex items-center gap-3 font-mono text-[0.62rem] leading-none tracking-[0.18em] text-black/55 smallcaps">
-                            <span className="block h-px w-8 bg-black/40" />
+                        <p className="mb-3 flex items-center gap-3 font-mono text-[0.62rem] leading-none tracking-[0.18em] text-black/55 dark:text-white/40 smallcaps">
+                            <span className="block h-px w-8 bg-black/40 dark:bg-white/25" />
                             The work
                         </p>
                         <h3
@@ -348,31 +348,31 @@ const ProjectCard = ({ project, index, total }: ProjectCardProps) => {
                     </div>
 
                     {/* Objective — pulled out as italic block quote */}
-                    <blockquote className="relative border-l-2 border-black/40 pl-4 sm:pl-5">
-                        <p className="font-serif-alt text-[1.05rem] italic leading-[1.55] text-black/75 sm:text-[1.15rem]">
+                    <blockquote className="relative border-l-2 border-black/40 dark:border-white/30 pl-4 sm:pl-5">
+                        <p className="font-serif-alt text-[1.05rem] italic leading-[1.55] text-black/75 dark:text-white/55 sm:text-[1.15rem]">
                             — {project.objective}
                         </p>
                     </blockquote>
 
                     {/* Description */}
                     <div className="relative">
-                        <p className="mb-2 flex items-center gap-3 font-mono text-[0.58rem] leading-none tracking-[0.18em] text-black/45 smallcaps">
-                            <span className="block h-px w-5 bg-black/30" />
+                        <p className="mb-2 flex items-center gap-3 font-mono text-[0.58rem] leading-none tracking-[0.18em] text-black/45 dark:text-white/30 smallcaps">
+                            <span className="block h-px w-5 bg-black/30 dark:bg-white/20" />
                             Notes from the field
                         </p>
-                        <p style={{ fontFamily: 'Inter Variable' }} className="text-[0.95rem] leading-[1.65] text-black/75 sm:text-base">
+                        <p style={{ fontFamily: 'Inter Variable' }} className="text-[0.95rem] leading-[1.65] text-black/75 dark:text-white/55 sm:text-base">
                             {project.description}
                         </p>
                     </div>
 
                     {/* Technologies / Manifest */}
                     <div className="relative">
-                        <div className="mb-3 flex items-center justify-between gap-3 font-mono text-[0.58rem] leading-none tracking-[0.18em] text-black/45 smallcaps">
+                        <div className="mb-3 flex items-center justify-between gap-3 font-mono text-[0.58rem] leading-none tracking-[0.18em] text-black/45 dark:text-white/30 smallcaps">
                             <span className="flex items-center gap-3">
-                                <span className="block h-px w-5 bg-black/30" />
+                                <span className="block h-px w-5 bg-black/30 dark:bg-white/20" />
                                 Materials & instruments
                             </span>
-                            <span className="text-black/35">
+                            <span className="text-black/35 dark:text-white/25">
                                 {String(project.technologies.length).padStart(2, '0')} items
                             </span>
                         </div>
@@ -380,7 +380,7 @@ const ProjectCard = ({ project, index, total }: ProjectCardProps) => {
                             {project.technologies.map((tech) => (
                                 <li
                                     key={tech}
-                                    className="border border-black/30 bg-[rgb(240,238,230)] px-2 py-1 font-mono text-[0.62rem] leading-none tracking-[0.1em] text-black/65 smallcaps transition-all duration-300 hover:-translate-y-0.5 hover:border-black/75 hover:bg-[rgb(243,241,233)] hover:text-black hover:shadow-[2px_2px_0_rgba(10,10,10,0.85)]"
+                                    className="border border-black/30 dark:border-white/20 bg-[rgb(240,238,230)] dark:bg-[rgb(22,21,18)] px-2 py-1 font-mono text-[0.62rem] leading-none tracking-[0.1em] text-black/65 dark:text-white/55 smallcaps transition-all duration-300 hover:-translate-y-0.5 hover:border-black/75 dark:hover:border-white/55 hover:bg-[rgb(243,241,233)] dark:hover:bg-[rgb(28,26,22)] hover:text-black dark:hover:text-white hover:shadow-[2px_2px_0_rgba(10,10,10,0.85)] dark:hover:shadow-[2px_2px_0_rgba(240,239,233,0.25)]"
                                 >
                                     {tech}
                                 </li>
@@ -394,7 +394,7 @@ const ProjectCard = ({ project, index, total }: ProjectCardProps) => {
                             href={project.liveLink}
                             target={project.liveLink !== '#' ? '_blank' : undefined}
                             rel={project.liveLink !== '#' ? 'noopener noreferrer' : undefined}
-                            className="group relative inline-flex items-center gap-3 border border-black bg-[#0a0a0a] px-4 py-2.5 font-mono text-[0.62rem] leading-none tracking-[0.18em] text-[rgb(244,243,238)] smallcaps shadow-[4px_4px_0_rgba(10,10,10,0.85)] transition-all duration-200 hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0_rgba(10,10,10,0.85)] focus:outline-none focus:ring-1 focus:ring-black"
+                            className="group relative inline-flex items-center gap-3 border border-black dark:border-white bg-[#0a0a0a] dark:bg-[rgb(240,239,233)] px-4 py-2.5 font-mono text-[0.62rem] leading-none tracking-[0.18em] text-[rgb(244,243,238)] dark:text-[rgb(13,12,10)] smallcaps shadow-[4px_4px_0_rgba(10,10,10,0.85)] dark:shadow-[4px_4px_0_rgba(240,239,233,0.25)] transition-all duration-200 hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0_rgba(10,10,10,0.85)] dark:hover:shadow-[6px_6px_0_rgba(240,239,233,0.25)] focus:outline-none focus:ring-1 focus:ring-black dark:focus:ring-white"
                         >
                             <span>Visit live site</span>
                             <span className="transition-transform group-hover:translate-x-1">↗</span>
@@ -403,7 +403,7 @@ const ProjectCard = ({ project, index, total }: ProjectCardProps) => {
                             href={project.githubLink}
                             target={project.githubLink !== '#' ? '_blank' : undefined}
                             rel={project.githubLink !== '#' ? 'noopener noreferrer' : undefined}
-                            className="group relative inline-flex items-center gap-3 border border-black bg-[rgb(244,243,238)] px-4 py-2.5 font-mono text-[0.62rem] leading-none tracking-[0.18em] text-black smallcaps shadow-[4px_4px_0_rgba(10,10,10,0.85)] transition-all duration-200 hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0_rgba(10,10,10,0.85)] focus:outline-none focus:ring-1 focus:ring-black"
+                            className="group relative inline-flex items-center gap-3 border border-black dark:border-white/60 bg-[rgb(244,243,238)] dark:bg-[rgb(22,21,18)] px-4 py-2.5 font-mono text-[0.62rem] leading-none tracking-[0.18em] text-black dark:text-white smallcaps shadow-[4px_4px_0_rgba(10,10,10,0.85)] dark:shadow-[4px_4px_0_rgba(240,239,233,0.25)] transition-all duration-200 hover:-translate-x-[2px] hover:-translate-y-[2px] hover:shadow-[6px_6px_0_rgba(10,10,10,0.85)] dark:hover:shadow-[6px_6px_0_rgba(240,239,233,0.25)] focus:outline-none focus:ring-1 focus:ring-black dark:focus:ring-white"
                         >
                             <span>View source</span>
                             <span className="transition-transform group-hover:translate-x-1">→</span>
@@ -413,14 +413,14 @@ const ProjectCard = ({ project, index, total }: ProjectCardProps) => {
             </div>
 
             {/* ── Card footer: closing line ── */}
-            <footer className="mt-10 flex flex-wrap items-center justify-between gap-3 border-t border-black/15 pt-3 sm:mt-14">
-                <span className="font-mono text-[0.58rem] tracking-[0.18em] text-black/40 smallcaps">
+            <footer className="mt-10 flex flex-wrap items-center justify-between gap-3 border-t border-black/15 dark:border-white/10 pt-3 sm:mt-14">
+                <span className="font-mono text-[0.58rem] tracking-[0.18em] text-black/40 dark:text-white/25 smallcaps">
                     End of Plate {plateNum}
                 </span>
-                <span className="hidden font-serif-alt text-sm italic text-black/45 sm:inline">
+                <span className="hidden font-serif-alt text-sm italic text-black/45 dark:text-white/30 sm:inline">
                     — turn the page —
                 </span>
-                <span className="font-mono text-[0.58rem] tracking-[0.18em] text-black/40 smallcaps">
+                <span className="font-mono text-[0.58rem] tracking-[0.18em] text-black/40 dark:text-white/25 smallcaps">
                     {plateNum} / {totalNum}
                 </span>
             </footer>
@@ -436,7 +436,7 @@ export const Projects = () => {
         <section
             ref={ref}
             id="projects"
-            className="relative w-full overflow-hidden border-b border-black/15 bg-[rgb(244,243,238)] px-5 py-20 sm:px-6 sm:py-24 md:px-12 md:py-28 lg:py-32"
+            className="relative w-full overflow-hidden border-b border-black/15 dark:border-white/10 bg-[rgb(244,243,238)] dark:bg-[rgb(13,12,10)] px-5 py-20 sm:px-6 sm:py-24 md:px-12 md:py-28 lg:py-32"
         >
             {/* Backgrounds */}
             <div className="absolute inset-0 grid-bg pointer-events-none opacity-60" />
@@ -455,7 +455,7 @@ export const Projects = () => {
 
             {/* Vertical archive label */}
             <span
-                className="vertical-rl absolute left-3 top-1/2 z-10 hidden -translate-y-1/2 text-[0.68rem] text-black/45 smallcaps fade-up sm:block md:left-6"
+                className="vertical-rl absolute left-3 top-1/2 z-10 hidden -translate-y-1/2 text-[0.68rem] text-black/45 dark:text-white/30 smallcaps fade-up sm:block md:left-6"
                 style={{ animationDelay: '0.5s' }}
             >
                 The Plates · {total} on file
@@ -464,17 +464,17 @@ export const Projects = () => {
             <div className="relative z-10 mx-auto w-full max-w-[1400px]">
                 {/* ── Top section plate ── */}
                 <div
-                    className="mb-14 flex items-center justify-between gap-4 border-b border-black/15 pb-3 fade-up sm:mb-20 md:mb-24"
+                    className="mb-14 flex items-center justify-between gap-4 border-b border-black/15 dark:border-white/10 pb-3 fade-up sm:mb-20 md:mb-24"
                     style={{ animationDelay: '0.3s' }}
                 >
-                    <span className="flex items-center gap-3 font-mono text-[0.62rem] leading-none tracking-[0.18em] text-black/45 smallcaps">
-                        <span className="block h-px w-6 bg-black/30" />
+                    <span className="flex items-center gap-3 font-mono text-[0.62rem] leading-none tracking-[0.18em] text-black/45 dark:text-white/30 smallcaps">
+                        <span className="block h-px w-6 bg-black/30 dark:bg-white/20" />
                         Vol. 003 / Projects
                     </span>
-                    <span className="hidden font-mono text-[0.62rem] tracking-[0.18em] text-black/35 smallcaps sm:inline">
+                    <span className="hidden font-mono text-[0.62rem] tracking-[0.18em] text-black/35 dark:text-white/25 smallcaps sm:inline">
                         Selected plates · from the studio
                     </span>
-                    <span className="font-mono text-[0.62rem] tracking-[0.18em] text-black/35 smallcaps">
+                    <span className="font-mono text-[0.62rem] tracking-[0.18em] text-black/35 dark:text-white/25 smallcaps">
                         {String(total).padStart(2, '0')} Plates
                     </span>
                 </div>
@@ -491,12 +491,12 @@ export const Projects = () => {
                     <div className="relative grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14">
                         <div className="relative z-10 lg:col-span-7">
                             <p
-                                className="mb-5 flex items-center gap-3 text-[0.72rem] leading-none text-black/65 smallcaps fade-up sm:text-[0.76rem]"
+                                className="mb-5 flex items-center gap-3 text-[0.72rem] leading-none text-black/65 dark:text-white/45 smallcaps fade-up sm:text-[0.76rem]"
                                 style={{ animationDelay: '0.4s' }}
                             >
-                                <span className="block h-px w-8 shrink-0 bg-black/40 sm:w-10" />
+                                <span className="block h-px w-8 shrink-0 bg-black/40 dark:bg-white/25 sm:w-10" />
                                 <span>Section 004 — The Plates</span>
-                                <span className="hidden shrink-0 font-mono text-black/40 xs:inline">— 004</span>
+                                <span className="hidden shrink-0 font-mono text-black/40 dark:text-white/25 xs:inline">— 004</span>
                             </p>
 
                             <h2
@@ -509,7 +509,7 @@ export const Projects = () => {
                                 <br />
                                 <span className="title-word">
                                     work
-                                    <span className="hero-mark align-top font-normal italic text-black/40">IV</span>
+                                    <span className="hero-mark align-top font-normal italic text-black/40 dark:text-white/25">IV</span>
                                 </span>
                             </h2>
                         </div>
@@ -518,15 +518,15 @@ export const Projects = () => {
                             className="relative z-10 lg:col-span-5 lg:pt-12 fade-up"
                             style={{ animationDelay: '0.75s' }}
                         >
-                            <div className="mb-4 flex items-center gap-3 font-mono text-[0.6rem] leading-none tracking-[0.18em] text-black/40 smallcaps">
-                                <span className="block h-px w-6 bg-black/25" />
+                            <div className="mb-4 flex items-center gap-3 font-mono text-[0.6rem] leading-none tracking-[0.18em] text-black/40 dark:text-white/25 smallcaps">
+                                <span className="block h-px w-6 bg-black/25 dark:bg-white/20" />
                                 Note to the Reader
                             </div>
-                            <p className="font-serif-alt max-w-[30rem] text-[1.1rem] italic leading-[1.5] text-black/70 sm:text-[1.2rem]">
+                            <p className="font-serif-alt max-w-[30rem] text-[1.1rem] italic leading-[1.5] text-black/70 dark:text-white/55 sm:text-[1.2rem]">
                                 A small index of things made, examined under glass.
                                 Each plate carries its objective, its materials, and a
                                 window on the work itself.{' '}
-                                <span className="not-italic font-mono text-[0.7rem] tracking-[0.1em] text-black/55 smallcaps">
+                                <span className="not-italic font-mono text-[0.7rem] tracking-[0.1em] text-black/55 dark:text-white/40 smallcaps">
                                     Hover any item to view in detail.
                                 </span>
                             </p>
@@ -535,12 +535,12 @@ export const Projects = () => {
                 </div>
 
                 {/* ── The Plates ── */}
-                <div className="relative border-t border-black/20 fade-up" style={{ animationDelay: '0.4s' }}>
+                <div className="relative border-t border-black/20 dark:border-white/15 fade-up" style={{ animationDelay: '0.4s' }}>
                     {/* Top marginalia on the border */}
-                    <span className="font-serif-alt absolute -top-[0.95rem] left-0 z-10 inline-block bg-[rgb(244,243,238)] pr-4 text-sm italic leading-none text-black/55">
+                    <span className="font-serif-alt absolute -top-[0.95rem] left-0 z-10 inline-block bg-[rgb(244,243,238)] dark:bg-[rgb(13,12,10)] pr-4 text-sm italic leading-none text-black/55 dark:text-white/40">
                         The Plates.
                     </span>
-                    <span className="font-mono absolute -top-[0.75rem] right-0 z-10 hidden bg-[rgb(244,243,238)] pl-3 text-[0.6rem] leading-none tracking-[0.18em] text-black/40 smallcaps sm:inline-block">
+                    <span className="font-mono absolute -top-[0.75rem] right-0 z-10 hidden bg-[rgb(244,243,238)] dark:bg-[rgb(13,12,10)] pl-3 text-[0.6rem] leading-none tracking-[0.18em] text-black/40 dark:text-white/25 smallcaps sm:inline-block">
                         {String(total).padStart(2, '0')} entries · 001 — {String(total).padStart(3, '0')}
                     </span>
 
@@ -555,7 +555,7 @@ export const Projects = () => {
                         ))}
                     </div>
 
-                    <div className="mt-20 border-t border-black/20 sm:mt-28" aria-hidden="true" />
+                    <div className="mt-20 border-t border-black/20 dark:border-white/15 sm:mt-28" aria-hidden="true" />
                 </div>
 
                 {/* ── Closing flourish ── */}
@@ -563,28 +563,28 @@ export const Projects = () => {
                     className="mt-10 flex items-center justify-center gap-4 fade-up sm:mt-14"
                     style={{ animationDelay: '0.9s' }}
                 >
-                    <span className="block h-px w-16 bg-black/20 sm:w-24" />
-                    <span className="font-serif-alt text-base italic text-black/45 sm:text-lg">
+                    <span className="block h-px w-16 bg-black/20 dark:bg-white/15 sm:w-24" />
+                    <span className="font-serif-alt text-base italic text-black/45 dark:text-white/30 sm:text-lg">
                         — fin des plaques —
                     </span>
-                    <span className="block h-px w-16 bg-black/20 sm:w-24" />
+                    <span className="block h-px w-16 bg-black/20 dark:bg-white/15 sm:w-24" />
                 </div>
 
                 {/* ── Bottom meta ── */}
-                <div className="mt-12 flex flex-wrap items-center justify-between gap-3 border-t border-black/15 pt-4 sm:mt-16">
-                    <span className="font-mono text-[0.62rem] tracking-[0.18em] text-black/40 smallcaps">
+                <div className="mt-12 flex flex-wrap items-center justify-between gap-3 border-t border-black/15 dark:border-white/10 pt-4 sm:mt-16">
+                    <span className="font-mono text-[0.62rem] tracking-[0.18em] text-black/40 dark:text-white/25 smallcaps">
                         [ 003 / 005 ] - Projects
                     </span>
-                    <span className="hidden font-mono text-[0.62rem] tracking-[0.18em] text-black/35 smallcaps sm:inline">
+                    <span className="hidden font-mono text-[0.62rem] tracking-[0.18em] text-black/35 dark:text-white/25 smallcaps sm:inline">
                         {total} plates · cataloged & dated
                     </span>
                     <a
                         href="#contact"
-                        className="group inline-flex items-center gap-3 font-mono text-[0.62rem] leading-none tracking-[0.18em] text-black/55 smallcaps transition-colors hover:text-black"
+                        className="group inline-flex items-center gap-3 font-mono text-[0.62rem] leading-none tracking-[0.18em] text-black/55 dark:text-white/40 smallcaps transition-colors hover:text-black dark:hover:text-white"
                     >
                         Continue to Contact
-                        <span className="relative block h-px w-10 overflow-hidden bg-black/25">
-                            <span className="absolute inset-0 origin-left scale-x-0 bg-black transition-transform duration-500 group-hover:scale-x-100" />
+                        <span className="relative block h-px w-10 overflow-hidden bg-black/25 dark:bg-white/20">
+                            <span className="absolute inset-0 origin-left scale-x-0 bg-black dark:bg-white transition-transform duration-500 group-hover:scale-x-100" />
                         </span>
                         <span className="transition-transform group-hover:translate-x-1">↓</span>
                     </a>

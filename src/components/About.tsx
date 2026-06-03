@@ -62,7 +62,7 @@ export const About = () => {
 
             {/* Top meta row */}
             <div
-                className="absolute left-5 right-5 top-6 z-10 flex items-center justify-between gap-4 text-[0.68rem] leading-none text-black/45 smallcaps fade-up sm:left-6 sm:right-6 sm:top-8 md:left-12 md:right-12 md:top-10"
+                className="absolute left-5 right-5 top-6 z-10 flex items-center justify-between gap-4 text-[0.68rem] leading-none text-black/45 dark:text-white/35 smallcaps fade-up sm:left-6 sm:right-6 sm:top-8 md:left-12 md:right-12 md:top-10"
                 style={{ animationDelay: '0.35s' }}
             >
                 <span className="min-w-0 truncate font-mono tracking-[0.12em]">
@@ -86,7 +86,7 @@ export const About = () => {
 
             {/* Vertical year label (left side this time, for variation) */}
             <span
-                className="vertical-rl absolute left-3 top-1/2 z-10 hidden -translate-y-1/2 text-[0.68rem] text-black/45 smallcaps fade-up sm:block md:left-6"
+                className="vertical-rl absolute left-3 top-1/2 z-10 hidden -translate-y-1/2 text-[0.68rem] text-black/45 dark:text-white/30 smallcaps fade-up sm:block md:left-6"
                 style={{ animationDelay: '0.5s', writingMode: 'vertical-rl', transform: 'translateY(-50%) rotate(180deg)' }}
             >
                 Profile - Biography - 002
@@ -102,12 +102,12 @@ export const About = () => {
                 className="absolute left-12 top-28 hidden items-center gap-3 fade-up xl:flex"
                 style={{ animationDelay: '0.7s' }}
             >
-                <span className="font-serif-alt text-2xl italic text-black/60">
+                <span className="font-serif-alt text-2xl italic text-black/60 dark:text-white/45">
                     notes from a maker
                 </span>
                 <svg width="40" height="40" viewBox="0 0 40 40" fill="none" className="opacity-40" aria-hidden="true">
-                    <path d="M5 5 Q 20 35, 35 5" stroke="#0a0a0a" strokeWidth="1" fill="none" strokeDasharray="2 3" />
-                    <circle cx="5" cy="5" r="2" fill="#0a0a0a" />
+                    <path d="M5 5 Q 20 35, 35 5" stroke="currentColor" strokeWidth="1" fill="none" strokeDasharray="2 3" />
+                    <circle cx="5" cy="5" r="2" fill="currentColor" />
                 </svg>
             </div>
 
@@ -117,12 +117,12 @@ export const About = () => {
                 {/* ── Left: Text content ── */}
                 <div className="order-1 lg:col-span-7 xl:col-span-7">
                     <p
-                        className="mb-5 flex max-w-full items-center gap-3 text-[0.72rem] leading-none text-black/65 smallcaps fade-up sm:mb-6 sm:text-[0.76rem]"
+                        className="mb-5 flex max-w-full items-center gap-3 text-[0.72rem] leading-none text-black/65 dark:text-white/45 smallcaps fade-up sm:mb-6 sm:text-[0.76rem]"
                         style={{ animationDelay: '0.4s' }}
                     >
-                        <span className="block h-px w-8 shrink-0 bg-black/40 sm:w-10" />
+                        <span className="block h-px w-8 shrink-0 bg-black/40 dark:bg-white/25 sm:w-10" />
                         <span className="min-w-0">About — Profile</span>
-                        <span className="hidden shrink-0 font-mono text-black/40 xs:inline">- 002</span>
+                        <span className="hidden shrink-0 font-mono text-black/40 dark:text-white/25 xs:inline">- 002</span>
                     </p>
 
                     <h2 className="hero-title font-black fade-up" style={{ animationDelay: '0.55s' }}>
@@ -132,19 +132,19 @@ export const About = () => {
                         <br />
                         <span className="title-word">
                             the craft
-                            <span className="hero-mark align-top font-normal italic text-black/40">.</span>
+                            <span className="hero-mark align-top font-normal italic text-black/40 dark:text-white/25">.</span>
                         </span>
                     </h2>
 
                     <div className="mt-7 fade-up sm:mt-9 md:mt-12" style={{ animationDelay: '0.75s' }}>
                         {/* Lead line */}
-                        <p className="font-serif-alt max-w-[36rem] text-[1.25rem] italic leading-[1.5] text-black/85 sm:text-[1.4rem] md:text-[1.5rem]">
+                        <p className="font-serif-alt max-w-[36rem] text-[1.25rem] italic leading-[1.5] text-black/85 dark:text-white/65 sm:text-[1.4rem] md:text-[1.5rem]">
                             My name is{' '}
-                            <span className="not-italic font-normal text-black underline decoration-black/30 underline-offset-[6px]">
+                            <span className="not-italic font-normal text-black dark:text-white underline decoration-black/30 dark:decoration-white/30 underline-offset-[6px]">
                                 Gian Raphael Alcantara
                             </span>
                             , a dedicated software engineering student at{' '}
-                            <span className="not-italic font-normal text-black underline decoration-black/30 underline-offset-[6px]">
+                            <span className="not-italic font-normal text-black dark:text-white underline decoration-black/30 dark:decoration-white/30 underline-offset-[6px]">
                                 First City Providential College
                             </span>
                             .
@@ -152,20 +152,20 @@ export const About = () => {
 
                         {/* Divider */}
                         <div className="mt-7 mb-6 flex items-center gap-4">
-                            <span className="block h-px w-12 bg-black/30" />
-                            <span className="font-mono text-[0.6rem] tracking-[0.18em] text-black/45 smallcaps">
+                            <span className="block h-px w-12 bg-black/30 dark:bg-white/20" />
+                            <span className="font-mono text-[0.6rem] tracking-[0.18em] text-black/45 dark:text-white/30 smallcaps">
                                 Mission · Vision
                             </span>
-                            <span className="block h-px flex-1 bg-black/15" />
+                            <span className="block h-px flex-1 bg-black/15 dark:bg-white/10" />
                         </div>
 
                         {/* Body paragraphs as a 2-col arrangement on larger screens */}
                         <div className="grid max-w-[42rem] grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
                             <div className="relative">
-                                <span className="absolute -left-4 top-0 hidden font-mono text-[0.55rem] tracking-[0.2em] text-black/35 smallcaps md:block">
+                                <span className="absolute -left-4 top-0 hidden font-mono text-[0.55rem] tracking-[0.2em] text-black/35 dark:text-white/25 smallcaps md:block">
                                     i.
                                 </span>
-                                <p style={{ fontFamily: 'Inter Variable' }} className="text-[0.95rem] leading-[1.7] text-black/70 sm:text-[1rem]">
+                                <p style={{ fontFamily: 'Inter Variable' }} className="text-[0.95rem] leading-[1.7] text-black/70 dark:text-white/55 sm:text-[1rem]">
                                     My mission revolves around mastering programming languages,
                                     algorithms, and software development methodologies. Fueled by a
                                     relentless passion for technology and innovation, I aspire to become
@@ -174,10 +174,10 @@ export const About = () => {
                                 </p>
                             </div>
                             <div className="relative">
-                                <span className="absolute -left-4 top-0 hidden font-mono text-[0.55rem] tracking-[0.2em] text-black/35 smallcaps md:block">
+                                <span className="absolute -left-4 top-0 hidden font-mono text-[0.55rem] tracking-[0.2em] text-black/35 dark:text-white/25 smallcaps md:block">
                                     ii.
                                 </span>
-                                <p style={{ fontFamily: 'Inter Variable' }} className="text-[0.95rem] leading-[1.7] text-black/70 sm:text-[1rem]">
+                                <p style={{ fontFamily: 'Inter Variable' }} className="text-[0.95rem] leading-[1.7] text-black/70 dark:text-white/55 sm:text-[1rem]">
                                     My vision extends beyond academic excellence; I aim to leverage my
                                     skills to create impactful solutions that address real-world
                                     challenges — whether it's enhancing user experiences, optimizing
@@ -189,13 +189,13 @@ export const About = () => {
 
                         {/* Signature row */}
                         <div className="mt-10 flex items-center gap-5">
-                            <span className="font-serif-alt text-xl italic text-black/55 sm:text-2xl">
+                            <span className="font-serif-alt text-xl italic text-black/55 dark:text-white/40 sm:text-2xl">
                                 — signed,
                             </span>
-                            <span className="font-mono text-[0.62rem] tracking-[0.18em] text-black/45 smallcaps">
+                            <span className="font-mono text-[0.62rem] tracking-[0.18em] text-black/45 dark:text-white/30 smallcaps">
                                 The Author
                             </span>
-                            <span className="block h-px flex-1 bg-black/20" />
+                            <span className="block h-px flex-1 bg-black/20 dark:bg-white/15" />
                         </div>
                     </div>
                 </div>
@@ -206,62 +206,60 @@ export const About = () => {
                     style={{ animationDelay: '0.6s' }}
                 >
                     {/* Plate label */}
-                    <div className="mb-4 flex items-center justify-between gap-4 font-mono text-[0.62rem] leading-none tracking-[0.18em] text-black/45 smallcaps">
+                    <div className="mb-4 flex items-center justify-between gap-4 font-mono text-[0.62rem] leading-none tracking-[0.18em] text-black/45 dark:text-white/30 smallcaps">
                         <span className="flex items-center gap-3">
-                            <span className="block h-px w-6 bg-black/30" />
+                            <span className="block h-px w-6 bg-black/30 dark:bg-white/20" />
                             Fig. 02 / Specimen
                         </span>
-                        <span className="text-black/35">Living · Form</span>
+                        <span className="text-black/35 dark:text-white/25">Living · Form</span>
                     </div>
 
                     {/* Blob stage */}
                     <div className="relative aspect-square w-full">
                         <div className="absolute inset-0 blob-stage">
-                            {/* Concentric SVG guide lines */}
+                            {/* Concentric SVG guide lines — use currentColor so they invert */}
                             <svg
-                                className="absolute inset-0 h-full w-full pointer-events-none"
+                                className="absolute inset-0 h-full w-full pointer-events-none text-black/60 dark:text-white/40"
                                 viewBox="0 0 400 400"
                                 aria-hidden="true"
                             >
-                                <circle cx="200" cy="200" r="186" fill="none" stroke="rgba(10,10,10,0.10)" strokeWidth="0.5" strokeDasharray="2 5" />
-                                <circle cx="200" cy="200" r="150" fill="none" stroke="rgba(10,10,10,0.08)" strokeWidth="0.5" strokeDasharray="2 5" />
-                                <line x1="200" y1="6" x2="200" y2="394" stroke="rgba(10,10,10,0.06)" strokeWidth="0.5" strokeDasharray="2 5" />
-                                <line x1="6" y1="200" x2="394" y2="200" stroke="rgba(10,10,10,0.06)" strokeWidth="0.5" strokeDasharray="2 5" />
+                                <circle cx="200" cy="200" r="186" fill="none" stroke="currentColor" strokeOpacity="0.18" strokeWidth="0.5" strokeDasharray="2 5" />
+                                <circle cx="200" cy="200" r="150" fill="none" stroke="currentColor" strokeOpacity="0.14" strokeWidth="0.5" strokeDasharray="2 5" />
+                                <line x1="200" y1="6" x2="200" y2="394" stroke="currentColor" strokeOpacity="0.10" strokeWidth="0.5" strokeDasharray="2 5" />
+                                <line x1="6" y1="200" x2="394" y2="200" stroke="currentColor" strokeOpacity="0.10" strokeWidth="0.5" strokeDasharray="2 5" />
                                 {/* Slowly orbiting tick around the rim */}
                                 <g className="blob-orbit" style={{ transformOrigin: '200px 200px' }}>
-                                    <circle cx="200" cy="14" r="2.5" fill="rgba(10,10,10,0.55)" />
-                                    <circle cx="200" cy="14" r="6" fill="none" stroke="rgba(10,10,10,0.2)" strokeWidth="0.5" />
+                                    <circle cx="200" cy="14" r="2.5" fill="currentColor" fillOpacity="0.9" />
+                                    <circle cx="200" cy="14" r="6" fill="none" stroke="currentColor" strokeOpacity="0.35" strokeWidth="0.5" />
                                 </g>
                             </svg>
 
-                            {/* Outer blob — warm tan */}
+                            {/* Outer blob — warm tan (kept across themes) */}
                             <div
-                                className="blob-a absolute left-1/2 top-1/2 h-[78%] w-[78%]"
+                                className="blob-a absolute left-1/2 top-1/2 h-[78%] w-[78%] mix-blend-multiply dark:mix-blend-screen"
                                 style={{
                                     background:
                                         'radial-gradient(circle at 30% 30%, rgba(190,158,114,0.65), rgba(150,128,92,0.4) 55%, rgba(110,95,72,0.28) 85%)',
-                                    mixBlendMode: 'multiply',
                                     transform: 'translate(-50%, -50%)',
                                 }}
                             />
 
                             {/* Middle blob — muted sage */}
                             <div
-                                className="blob-b absolute left-1/2 top-1/2 h-[58%] w-[58%]"
+                                className="blob-b absolute left-1/2 top-1/2 h-[58%] w-[58%] mix-blend-multiply dark:mix-blend-screen"
                                 style={{
                                     background:
                                         'radial-gradient(circle at 70% 35%, rgba(158,170,148,0.7), rgba(108,122,100,0.4) 55%, rgba(70,82,68,0.3) 85%)',
-                                    mixBlendMode: 'multiply',
                                     transform: 'translate(-50%, -50%)',
                                 }}
                             />
 
-                            {/* Innermost pulsing core */}
+                            {/* Innermost pulsing core — flips colour in dark */}
                             <div
                                 className="blob-core absolute left-1/2 top-1/2 h-[26%] w-[26%] rounded-full"
                                 style={{
                                     background:
-                                        'radial-gradient(circle, rgba(10,10,10,0.88), rgba(10,10,10,0.45) 55%, transparent 80%)',
+                                        'radial-gradient(circle, var(--blob-core-c, rgba(10,10,10,0.88)), var(--blob-core-c2, rgba(10,10,10,0.45)) 55%, transparent 80%)',
                                     filter: 'blur(2px)',
                                     transform: 'translate(-50%, -50%)',
                                 }}
@@ -270,51 +268,48 @@ export const About = () => {
                             {/* Grain overlay on blob area */}
                             <div className="absolute inset-0 grain rounded-[40%] pointer-events-none opacity-60" />
 
-                            {/* Floating specks */}
+                            {/* Floating specks — currentColor-driven */}
                             <span
-                                className="speck absolute left-[18%] top-[24%] h-1 w-1 rounded-full"
-                                style={{ background: 'rgba(10,10,10,0.55)' }}
+                                className="speck absolute left-[18%] top-[24%] h-1 w-1 rounded-full bg-black/55 dark:bg-white/55"
                             />
                             <span
-                                className="speck s2 absolute right-[20%] top-[68%] h-[3px] w-[3px] rounded-full"
-                                style={{ background: 'rgba(10,10,10,0.45)' }}
+                                className="speck s2 absolute right-[20%] top-[68%] h-[3px] w-[3px] rounded-full bg-black/45 dark:bg-white/45"
                             />
                             <span
-                                className="speck s3 absolute left-[28%] bottom-[18%] h-[2px] w-[2px] rounded-full"
-                                style={{ background: 'rgba(10,10,10,0.6)' }}
+                                className="speck s3 absolute left-[28%] bottom-[18%] h-[2px] w-[2px] rounded-full bg-black/60 dark:bg-white/60"
                             />
 
                             {/* Center crosshair */}
                             <span className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
-                                <span className="absolute left-1/2 top-1/2 block h-3 w-px -translate-x-1/2 -translate-y-1/2 bg-black/50" />
-                                <span className="absolute left-1/2 top-1/2 block h-px w-3 -translate-x-1/2 -translate-y-1/2 bg-black/50" />
+                                <span className="absolute left-1/2 top-1/2 block h-3 w-px -translate-x-1/2 -translate-y-1/2 bg-black/50 dark:bg-white/50" />
+                                <span className="absolute left-1/2 top-1/2 block h-px w-3 -translate-x-1/2 -translate-y-1/2 bg-black/50 dark:bg-white/50" />
                             </span>
 
                             {/* Corner brackets */}
-                            <span className="absolute top-0 left-0 h-3 w-3 border-t border-l border-black/60" />
-                            <span className="absolute top-0 right-0 h-3 w-3 border-t border-r border-black/60" />
-                            <span className="absolute bottom-0 left-0 h-3 w-3 border-b border-l border-black/60" />
-                            <span className="absolute bottom-0 right-0 h-3 w-3 border-b border-r border-black/60" />
+                            <span className="absolute top-0 left-0 h-3 w-3 border-t border-l border-black/60 dark:border-white/45" />
+                            <span className="absolute top-0 right-0 h-3 w-3 border-t border-r border-black/60 dark:border-white/45" />
+                            <span className="absolute bottom-0 left-0 h-3 w-3 border-b border-l border-black/60 dark:border-white/45" />
+                            <span className="absolute bottom-0 right-0 h-3 w-3 border-b border-r border-black/60 dark:border-white/45" />
 
                             {/* Cardinal labels */}
-                            <span className="absolute -top-3 left-1/2 -translate-x-1/2 font-mono text-[0.55rem] tracking-[0.2em] text-black/40 smallcaps">N</span>
-                            <span className="absolute -bottom-3 left-1/2 -translate-x-1/2 font-mono text-[0.55rem] tracking-[0.2em] text-black/40 smallcaps">S</span>
-                            <span className="absolute top-1/2 -left-3 -translate-y-1/2 font-mono text-[0.55rem] tracking-[0.2em] text-black/40 smallcaps">W</span>
-                            <span className="absolute top-1/2 -right-3 -translate-y-1/2 font-mono text-[0.55rem] tracking-[0.2em] text-black/40 smallcaps">E</span>
+                            <span className="absolute -top-3 left-1/2 -translate-x-1/2 font-mono text-[0.55rem] tracking-[0.2em] text-black/40 dark:text-white/30 smallcaps">N</span>
+                            <span className="absolute -bottom-3 left-1/2 -translate-x-1/2 font-mono text-[0.55rem] tracking-[0.2em] text-black/40 dark:text-white/30 smallcaps">S</span>
+                            <span className="absolute top-1/2 -left-3 -translate-y-1/2 font-mono text-[0.55rem] tracking-[0.2em] text-black/40 dark:text-white/30 smallcaps">W</span>
+                            <span className="absolute top-1/2 -right-3 -translate-y-1/2 font-mono text-[0.55rem] tracking-[0.2em] text-black/40 dark:text-white/30 smallcaps">E</span>
                         </div>
                     </div>
 
                     {/* Caption */}
                     <div className="mt-5 flex items-start justify-between gap-6">
-                        <p className="font-serif-alt max-w-[18rem] text-[1.05rem] italic leading-[1.35] text-black/60">
+                        <p className="font-serif-alt max-w-[18rem] text-[1.05rem] italic leading-[1.35] text-black/60 dark:text-white/45">
                             Fig. 02 — a study in<br />
                             motion &amp; intent.
                         </p>
                         <div className="shrink-0 text-right">
-                            <div className="font-mono text-[0.6rem] leading-none tracking-[0.18em] text-black/40 smallcaps">
+                            <div className="font-mono text-[0.6rem] leading-none tracking-[0.18em] text-black/40 dark:text-white/30 smallcaps">
                                 Observed in studio
                             </div>
-                            <div className="font-serif-alt mt-1.5 text-base italic text-black/40">
+                            <div className="font-serif-alt mt-1.5 text-base italic text-black/40 dark:text-white/30">
                                 — gra
                             </div>
                         </div>
@@ -324,7 +319,7 @@ export const About = () => {
 
             {/* Bottom meta */}
             <div
-                className="absolute bottom-5 left-5 hidden font-mono text-[0.64rem] text-black/40 smallcaps fade-up sm:bottom-6 sm:left-6 sm:block md:left-12"
+                className="absolute bottom-5 left-5 hidden font-mono text-[0.64rem] text-black/40 dark:text-white/25 smallcaps fade-up sm:bottom-6 sm:left-6 sm:block md:left-12"
                 style={{ animationDelay: '1s' }}
             >
                 [ 002 / 005 ] - About

@@ -1,7 +1,10 @@
 import { useScrollReveal } from './hooks/useScrollReveal';
+import { useTheme } from '../context/ThemeContext';
 
 export const Hero = () => {
     const [ref] = useScrollReveal();
+    const { theme, toggleTheme } = useTheme();
+    const isDark = theme === 'dark';
 
     return (
         <section
@@ -31,7 +34,7 @@ export const Hero = () => {
 
             {/* Top meta row */}
             <div
-                className="absolute mt-10 left-5 right-5 top-6 z-10 flex items-center justify-between gap-4 text-[0.68rem] leading-none text-black/45 smallcaps fade-up sm:left-6 sm:right-6 sm:top-8 md:left-12 md:right-12 md:top-10"
+                className="absolute mt-10 left-5 right-5 top-6 z-10 flex items-center justify-between gap-4 text-[0.68rem] leading-none text-black/45 dark:text-white/35 smallcaps fade-up sm:left-6 sm:right-6 sm:top-8 md:left-12 md:right-12 md:top-10"
                 style={{ animationDelay: '0.35s' }}
             >
                 <span className="min-w-0 truncate font-mono tracking-[0.12em]">
@@ -55,7 +58,7 @@ export const Hero = () => {
 
             {/* Vertical year label */}
             <span
-                className="vertical-rl absolute right-3 top-1/2 z-10 hidden -translate-y-1/2 text-[0.68rem] text-black/45 smallcaps fade-up sm:block md:right-6"
+                className="vertical-rl absolute right-3 top-1/2 z-10 hidden -translate-y-1/2 text-[0.68rem] text-black/45 dark:text-white/30 smallcaps fade-up sm:block md:right-6"
                 style={{ animationDelay: '0.5s' }}
             >
                 Est. 2019 - Independent Practice
@@ -81,14 +84,14 @@ export const Hero = () => {
                 >
                     <path
                         d="M5 35 Q 20 5, 35 35"
-                        stroke="#0a0a0a"
+                        stroke="currentColor"
                         strokeWidth="1"
                         fill="none"
                         strokeDasharray="2 3"
                     />
-                    <circle cx="35" cy="35" r="2" fill="#0a0a0a" />
+                    <circle cx="35" cy="35" r="2" fill="currentColor" />
                 </svg>
-                <span className="font-serif-alt text-2xl italic text-black/60">
+                <span className="font-serif-alt text-2xl italic text-black/60 dark:text-white/45">
                     a studio of one
                 </span>
             </div>
@@ -102,27 +105,25 @@ export const Hero = () => {
                     style={{ animationDelay: '0.6s' }}
                 >
                     {/* Plate label row */}
-                    <div className="mb-4 flex items-center justify-between gap-4 font-mono text-[0.62rem] leading-none tracking-[0.18em] text-black/45 smallcaps">
+                    <div className="mb-4 flex items-center justify-between gap-4 font-mono text-[0.62rem] leading-none tracking-[0.18em] text-black/45 dark:text-white/30 smallcaps">
                         <span className="flex items-center gap-3">
-                            <span className="block h-px w-6 bg-black/30" />
+                            <span className="block h-px w-6 bg-black/30 dark:bg-white/20" />
                             Plate 001 / IV
                         </span>
-                        <span className="text-black/35">Studio · NY</span>
+                        <span className="text-black/35 dark:text-white/25">Studio · NY</span>
                     </div>
 
                     {/* Stacked frame for paper-stack depth */}
                     <div className="relative">
-                        {/* Back plates */}
-                        <div className="absolute inset-0 translate-x-[12px] translate-y-[12px] border border-black/10" aria-hidden="true" />
-                        <div className="absolute inset-0 translate-x-[6px] translate-y-[6px] border border-black/15 bg-black/[0.02]" aria-hidden="true" />
+                        <div className="absolute inset-0 translate-x-[12px] translate-y-[12px] border border-black/10 dark:border-white/10" aria-hidden="true" />
+                        <div className="absolute inset-0 translate-x-[6px] translate-y-[6px] border border-black/15 dark:border-white/10 bg-black/[0.02]" aria-hidden="true" />
 
                         {/* Main frame */}
-                        <div className="relative border border-black/30 bg-[rgb(240,238,230)] p-3">
-                            {/* Corner brackets */}
-                            <span className="absolute top-0 left-0 h-3 w-3 border-t border-l border-black" />
-                            <span className="absolute top-0 right-0 h-3 w-3 border-t border-r border-black" />
-                            <span className="absolute bottom-0 left-0 h-3 w-3 border-b border-l border-black" />
-                            <span className="absolute bottom-0 right-0 h-3 w-3 border-b border-r border-black" />
+                        <div className="relative border border-black/30 dark:border-white/20 bg-[rgb(240,238,230)] dark:bg-[rgb(28,26,22)] p-3">
+                            <span className="absolute top-0 left-0 h-3 w-3 border-t border-l border-black dark:border-white/50" />
+                            <span className="absolute top-0 right-0 h-3 w-3 border-t border-r border-black dark:border-white/50" />
+                            <span className="absolute bottom-0 left-0 h-3 w-3 border-b border-l border-black dark:border-white/50" />
+                            <span className="absolute bottom-0 right-0 h-3 w-3 border-b border-r border-black dark:border-white/50" />
 
                             <img
                                 src="/images/profile-pic.jpg"
@@ -130,7 +131,6 @@ export const Hero = () => {
                                 className="absolute inset-0 h-full w-full object-cover"
                             />
                             <div className="relative aspect-[4/5] overflow-hidden bg-gradient-to-br from-[rgba(180,160,130,0.22)] via-[rgba(140,135,120,0.10)] to-[rgba(60,55,45,0.18)]">
-                                {/* Subtle inner vignette */}
                                 <div
                                     className="pointer-events-none absolute inset-0"
                                     style={{ background: 'radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.14))' }}
@@ -142,15 +142,15 @@ export const Hero = () => {
 
                     {/* Caption */}
                     <div className="mt-5 flex items-start justify-between gap-6">
-                        <p className="font-serif-alt max-w-[18rem] text-[1.05rem] italic leading-[1.35] text-black/60">
+                        <p className="font-serif-alt max-w-[18rem] text-[1.05rem] italic leading-[1.35] text-black/60 dark:text-white/45">
                             Fig. 01 — the maker,<br />
                             at work in the studio.
                         </p>
                         <div className="shrink-0 text-right">
-                            <div className="font-mono text-[0.6rem] leading-none tracking-[0.18em] text-black/40 smallcaps">
+                            <div className="font-mono text-[0.6rem] leading-none tracking-[0.18em] text-black/40 dark:text-white/30 smallcaps">
                                 Shot on 35mm
                             </div>
-                            <div className="font-serif-alt mt-1.5 text-base italic text-black/40">
+                            <div className="font-serif-alt mt-1.5 text-base italic text-black/40 dark:text-white/30">
                                 — gra
                             </div>
                         </div>
@@ -160,12 +160,12 @@ export const Hero = () => {
                 {/* ── Right: Existing text content ── */}
                 <div className="order-2 lg:col-span-7 xl:col-span-8">
                     <p
-                        className="mb-5 flex max-w-full items-center gap-3 text-[0.72rem] leading-none text-black/65 smallcaps fade-up sm:mb-6 sm:text-[0.76rem]"
+                        className="mb-5 flex max-w-full items-center gap-3 text-[0.72rem] leading-none text-black/65 dark:text-white/45 smallcaps fade-up sm:mb-6 sm:text-[0.76rem]"
                         style={{ animationDelay: '0.4s' }}
                     >
-                        <span className="block h-px w-8 shrink-0 bg-black/40 sm:w-10" />
+                        <span className="block h-px w-8 shrink-0 bg-black/40 dark:bg-white/25 sm:w-10" />
                         <span className="min-w-0">Software Engineering Student</span>
-                        <span className="hidden shrink-0 font-mono text-black/40 xs:inline">
+                        <span className="hidden shrink-0 font-mono text-black/40 dark:text-white/25 xs:inline">
                             - 001
                         </span>
                     </p>
@@ -179,7 +179,7 @@ export const Hero = () => {
                         <br />
                         <span className="title-word">
                             experiences
-                            <span className="hero-mark align-top font-normal italic text-black/40">(R)</span>
+                            <span className="hero-mark align-top font-normal italic text-black/40 dark:text-white/25">(R)</span>
                         </span>
                     </h1>
 
@@ -187,29 +187,75 @@ export const Hero = () => {
                         className="mt-7 grid grid-cols-1 gap-6 fade-up sm:mt-9 sm:gap-8 md:mt-12 md:grid-cols-12 md:items-end lg:mt-14"
                         style={{ animationDelay: '0.75s' }}
                     >
-                        {/* Description */}
+                        {/* Description + theme toggle */}
                         <div className="md:col-span-5 lg:col-span-5">
-                            <p className="font-serif-alt max-w-[34rem] text-[1.15rem] italic leading-[1.55] text-black/75 sm:text-[1.28rem] md:text-[1.38rem]">
+                            <p className="font-serif-alt max-w-[34rem] text-[1.15rem] italic leading-[1.55] text-black/75 dark:text-white/55 sm:text-[1.28rem] md:text-[1.38rem]">
                                 Passionate about creating elegant solutions through code and design. I focus on
                                 building clean, user-friendly experiences that solve real problems.
                             </p>
+
+                            {/* ── Theme toggle ── */}
+                            <button
+                                onClick={toggleTheme}
+                                aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+                                className="theme-toggle mt-8 group"
+                            >
+                                {/* Pill track */}
+                                <span className="theme-toggle__track" aria-hidden="true">
+                                    <span className="theme-toggle__thumb">
+                                        {/* Sun icon */}
+                                        <svg
+                                            className="theme-toggle__icon theme-toggle__icon--sun"
+                                            width="9" height="9" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" strokeWidth="2.5"
+                                            strokeLinecap="round" strokeLinejoin="round"
+                                            aria-hidden="true"
+                                        >
+                                            <circle cx="12" cy="12" r="4" />
+                                            <line x1="12" y1="2" x2="12" y2="5" />
+                                            <line x1="12" y1="19" x2="12" y2="22" />
+                                            <line x1="4.22" y1="4.22" x2="6.34" y2="6.34" />
+                                            <line x1="17.66" y1="17.66" x2="19.78" y2="19.78" />
+                                            <line x1="2" y1="12" x2="5" y2="12" />
+                                            <line x1="19" y1="12" x2="22" y2="12" />
+                                            <line x1="4.22" y1="19.78" x2="6.34" y2="17.66" />
+                                            <line x1="17.66" y1="6.34" x2="19.78" y2="4.22" />
+                                        </svg>
+                                        {/* Moon icon */}
+                                        <svg
+                                            className="theme-toggle__icon theme-toggle__icon--moon"
+                                            width="9" height="9" viewBox="0 0 24 24"
+                                            fill="none" stroke="currentColor" strokeWidth="2.5"
+                                            strokeLinecap="round" strokeLinejoin="round"
+                                            aria-hidden="true"
+                                        >
+                                            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                                        </svg>
+                                    </span>
+                                </span>
+
+                                {/* Label */}
+                                <span className="theme-toggle__label smallcaps">
+                                    {isDark ? 'Dark mode' : 'Light mode'}
+                                </span>
+                            </button>
                         </div>
 
                         {/* Stats */}
-                        <div className="grid grid-cols-2 gap-4 border-t border-black/15 pt-4 sm:gap-6 sm:pt-5 md:col-span-4 md:col-start-7 lg:col-start-7">
+                        <div className="grid grid-cols-2 gap-4 border-t border-black/15 dark:border-white/10 pt-4 sm:gap-6 sm:pt-5 md:col-span-4 md:col-start-7 lg:col-start-7">
                             <div>
                                 <div className="stat-number text-3xl font-black leading-none sm:text-4xl">
-                                    20<span className="text-black/30">+</span>
+                                    2<span className="text-black/30 dark:text-white/20">+</span>
                                 </div>
-                                <div className="mt-2 text-[0.68rem] leading-tight text-black/55 smallcaps">
+                                <div className="mt-2 text-[0.68rem] leading-tight text-black/55 dark:text-white/35 smallcaps">
                                     Projects Created
                                 </div>
                             </div>
                             <div>
                                 <div className="stat-number text-3xl font-black leading-none sm:text-4xl">
-                                    12
+                                    2
                                 </div>
-                                <div className="mt-2 text-[0.68rem] leading-tight text-black/55 smallcaps">
+                                <div className="mt-2 text-[0.68rem] leading-tight text-black/55 dark:text-white/35 smallcaps">
                                     Awards / Recognitions
                                 </div>
                             </div>
@@ -221,8 +267,8 @@ export const Hero = () => {
                                 href="#work"
                                 className="group inline-flex items-center gap-3 text-[0.72rem] leading-none smallcaps sm:gap-4"
                             >
-                                <div className="relative h-px w-12 overflow-hidden bg-black/20 sm:w-[60px]">
-                                    <div className="absolute inset-0 bg-black scroll-line" />
+                                <div className="relative h-px w-12 overflow-hidden bg-black/20 dark:bg-white/15 sm:w-[60px]">
+                                    <div className="absolute inset-0 bg-black dark:bg-white scroll-line" />
                                 </div>
                                 <span className="transition-transform group-hover:translate-x-1">Scroll ↓</span>
                             </a>
@@ -233,11 +279,11 @@ export const Hero = () => {
 
             {/* Bottom meta */}
             <div
-                className="absolute bottom-5 left-5 hidden font-mono text-[0.64rem] text-black/40 smallcaps fade-up sm:bottom-6 sm:left-6 sm:block md:left-12"
+                className="absolute bottom-5 left-5 hidden font-mono text-[0.64rem] text-black/40 dark:text-white/25 smallcaps fade-up sm:bottom-6 sm:left-6 sm:block md:left-12"
                 style={{ animationDelay: '1s' }}
             >
                 [ 001 / 005 ] - Hero
             </div>
-        </section >
+        </section>
     );
 };

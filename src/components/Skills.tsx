@@ -190,7 +190,23 @@ const postmansvg = `<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg
     <path fill="#f37036" d="M91.95 23.31a11.047 11.047 0 0 0-7.759 3.17 10.988 10.988 0 0 0-2.39 11.641c-4.741-2.03-11.155 1.51-31.106 21.457a.932.932 0 0 0-.037.094 1.242 1.242 0 0 0-.119.062l-6.309 6.364a1.97 1.97 0 0 0-.363 2.324 2.012 2.012 0 0 0 1.707.984l.313-.203 8.424-1.797-4.03 4.067a.873.873 0 0 0-.054.166l-19.75 19.799a.798.798 0 0 0-.192.238l-5.086 5.09a1.967 1.967 0 0 0-.414 2.043 1.995 1.995 0 0 0 1.656 1.265l12.618.88a1.01 1.01 0 0 0 .52-.415.886.886 0 0 0 0-1.035l-.026-.025a2.243 2.243 0 0 0 .705-.58 2.237 2.237 0 0 0 .406-1.876l-.984-4.187a126.725 126.725 0 0 0 26.334-16.861 1.091 1.091 0 0 0 .248.103c.254-.019.492-.128.672-.308 13.55-12.83 21.515-21.622 21.515-28.602a8.03 8.03 0 0 0-.431-2.85 10.957 10.957 0 0 0 3.845.83l-.015.004a11.219 11.219 0 0 0 5.183-1.45.775.775 0 0 0 .004.001.835.835 0 0 0 .617-.055 9.398 9.398 0 0 0 2.07-1.652 10.873 10.873 0 0 0 3.258-7.758 10.873 10.873 0 0 0-3.257-7.758.93.93 0 0 0-.118-.091 11.045 11.045 0 0 0-7.656-3.078zm-.087 1.772a9.27 9.27 0 0 1 5.586 1.914l-8.068 8.117a.84.84 0 0 0-.076.098.83.83 0 0 0-.239.55.832.832 0 0 0 .313.65h.002l6.1 6.1a9.044 9.044 0 0 1-10.028-1.913c-2.586-2.6-3.336-6.504-1.953-9.891 1.383-3.39 4.68-5.605 8.363-5.625zm7.12 3.432a8.87 8.87 0 0 1 2.033 5.674 9.15 9.15 0 0 1-2.688 6.464 9.989 9.989 0 0 1-1.098.895L92.307 36.7l-.963-.963.265-.265 7.373-6.96zm-.366 4.193a.777.777 0 0 0-.55.031.731.731 0 0 0-.36.426.73.73 0 0 0 .05.559 2.226 2.226 0 0 1-.257 2.328.64.64 0 0 0-.195.488c.004.184.07.36.195.492a.58.58 0 0 0 .414 0 .68.68 0 0 0 .672-.207 3.573 3.573 0 0 0 .465-3.777v.004a.777.777 0 0 0-.434-.344zM79.34 39.43a5.584 5.584 0 0 1 3.31 1.226 4.756 4.756 0 0 0-2.681 1.34L57.162 64.701l-4.476-4.476c11.828-11.772 19.06-17.921 23.556-19.936a5.584 5.584 0 0 1 3.098-.86zm3.965 2.96a2.895 2.895 0 0 1 2.043.844 2.786 2.786 0 0 1 .879 2.121 2.869 2.869 0 0 1-.985 2.07l-24.25 21.106-2.617-2.617 22.887-22.68a2.895 2.895 0 0 1 2.043-.843zm2.994 6.698c-1.69 6.702-10.647 15.783-19.987 24.607l-3.777-3.773L86.3 49.088zM51.367 61.547l.274.27 3.513 3.513-9.63 2.06 5.843-5.843zm5.793 5.84.004.004 1.168 1.195a1.086 1.086 0 0 0 .018.084l.078.012.248.254.82.84-5.385.66 3.05-3.05zm3.867 4.076 3.578 3.576A126.992 126.992 0 0 1 38.75 91.695a1.44 1.44 0 0 0-.777 1.653l1.035 4.5a.31.31 0 0 1 0 .363.31.31 0 0 1-.414 0l-6.102-6.152L51.3 72.975l9.728-1.512zm-29.933 21.94.869.814 4.492 4.492-10.016-.648 4.655-4.659z"/>
 </svg>
 `;
-
+const nextjssvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128"><path d="M64 0C28.7 0 0 28.7 0 64s28.7 64 64 64c11.2 0 21.7-2.9 30.8-7.9L48.4 55.3v36.6h-6.8V41.8h6.8l50.5 75.8C116.4 106.2 128 86.5 128 64c0-35.3-28.7-64-64-64zm22.1 84.6l-7.5-11.3V41.8h7.5v42.8z"/></svg>`;
+const supabasesvg = `<svg width="109" height="113" viewBox="0 0 109 113" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M63.7076 110.284C60.8481 113.885 55.0502 111.912 54.9813 107.314L53.9738 40.0627L99.1935 40.0627C107.384 40.0627 111.952 49.5228 106.859 55.9374L63.7076 110.284Z" fill="url(#paint0_linear)"/>
+<path d="M63.7076 110.284C60.8481 113.885 55.0502 111.912 54.9813 107.314L53.9738 40.0627L99.1935 40.0627C107.384 40.0627 111.952 49.5228 106.859 55.9374L63.7076 110.284Z" fill="url(#paint1_linear)" fill-opacity="0.2"/>
+<path d="M45.317 2.07103C48.1765 -1.53037 53.9745 0.442937 54.0434 5.041L54.4849 72.2922H9.83113C1.64038 72.2922 -2.92775 62.8321 2.1655 56.4175L45.317 2.07103Z" fill="#3ECF8E"/>
+<defs>
+<linearGradient id="paint0_linear" x1="53.9738" y1="54.974" x2="94.1635" y2="71.8295" gradientUnits="userSpaceOnUse">
+<stop stop-color="#249361"/>
+<stop offset="1" stop-color="#3ECF8E"/>
+</linearGradient>
+<linearGradient id="paint1_linear" x1="36.1558" y1="30.578" x2="54.4844" y2="65.0806" gradientUnits="userSpaceOnUse">
+<stop/>
+<stop offset="1" stop-opacity="0"/>
+</linearGradient>
+</defs>
+</svg>
+`;
 
 type Skill = {
     name: string;
@@ -212,6 +228,8 @@ const skills: Skill[] = [
     { name: 'Liferay',        svgContent: liferaysvg },
     { name: 'PHP',            svgContent: phpsvg       },
     { name: 'Laravel',        svgContent: laravelsvg   },
+    { name: 'Nextjs',         svgContent: nextjssvg    },
+    { name: 'Supabase',       svgContent: supabasesvg  },
     { name: 'Firebase',       svgContent: firebasesvg  },
     { name: 'Axure RP',       svgContent: axurerpsvg },
     { name: 'Figma',          svgContent: figmasvg     },
@@ -235,7 +253,7 @@ const SkillPlate = ({ skill, index }: { skill: Skill; index: number }) => {
         }
         if (skill.icon) {
             const Icon = skill.icon;
-            return <Icon className="h-8 w-8 text-black sm:h-9 sm:w-9" />;
+            return <Icon className="h-8 w-8 text-black dark:text-white sm:h-9 sm:w-9" />;
         }
         return null;
     };
@@ -244,28 +262,28 @@ const SkillPlate = ({ skill, index }: { skill: Skill; index: number }) => {
         <li className="group relative">
             {/* ── Tooltip ── */}
             <div className="pointer-events-none absolute bottom-full left-1/2 z-30 mb-3 -translate-x-1/2 translate-y-1 opacity-0 transition-all duration-300 group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:translate-y-0 group-focus-within:opacity-100">
-                <div className="relative whitespace-nowrap border border-black bg-[rgb(244,243,238)] px-2.5 py-1 shadow-[3px_3px_0_rgba(10,10,10,0.85)]">
-                    <span className="font-serif-alt text-[0.95rem] italic leading-none text-black">
+                <div className="relative whitespace-nowrap border border-black dark:border-white bg-[rgb(244,243,238)] dark:bg-[rgb(22,21,18)] px-2.5 py-1 shadow-[3px_3px_0_rgba(10,10,10,0.85)] dark:shadow-[3px_3px_0_rgba(255,255,255,0.15)]">
+                    <span className="font-serif-alt text-[0.95rem] italic leading-none text-black dark:text-white">
                         — {skill.name}
                     </span>
                 </div>
-                <span className="mx-auto mt-px block h-2 w-px bg-black/60" aria-hidden="true" />
+                <span className="mx-auto mt-px block h-2 w-px bg-black/60 dark:bg-white/30" aria-hidden="true" />
             </div>
 
             {/* ── Plate ── */}
             <button
                 type="button"
                 aria-label={skill.name}
-                className="relative flex aspect-square w-full items-center justify-center border border-black/25 bg-[rgb(240,238,230)] transition-all duration-500 ease-out hover:-translate-y-1.5 hover:border-black/80 hover:bg-[rgb(243,241,233)] hover:shadow-[4px_4px_0_rgba(10,10,10,0.10)] focus:-translate-y-1.5 focus:border-black/80 focus:bg-[rgb(243,241,233)] focus:shadow-[4px_4px_0_rgba(10,10,10,0.10)] focus:outline-none"
+                className="relative flex aspect-square w-full items-center justify-center border border-black/25 dark:border-white/15 bg-[rgb(240,238,230)] dark:bg-[rgb(22,21,18)] transition-all duration-500 ease-out hover:-translate-y-1.5 hover:border-black/80 dark:hover:border-white/30 hover:bg-[rgb(243,241,233)] dark:hover:bg-[rgb(32,31,28)] hover:shadow-[4px_4px_0_rgba(10,10,10,0.10)] dark:hover:shadow-[4px_4px_0_rgba(255,255,255,0.05)] focus:-translate-y-1.5 focus:border-black/80 dark:focus:border-white/30 focus:bg-[rgb(243,241,233)] dark:focus:bg-[rgb(32,31,28)] focus:shadow-[4px_4px_0_rgba(10,10,10,0.10)] dark:focus:shadow-[4px_4px_0_rgba(255,255,255,0.05)] focus:outline-none"
             >
                 {/* Corner brackets — appear on hover */}
-                <span className="pointer-events-none absolute -top-px -left-px h-2 w-2 border-t border-l border-black opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-within:opacity-100" />
-                <span className="pointer-events-none absolute -top-px -right-px h-2 w-2 border-t border-r border-black opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-within:opacity-100" />
-                <span className="pointer-events-none absolute -bottom-px -left-px h-2 w-2 border-b border-l border-black opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-within:opacity-100" />
-                <span className="pointer-events-none absolute -bottom-px -right-px h-2 w-2 border-b border-r border-black opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-within:opacity-100" />
+                <span className="pointer-events-none absolute -top-px -left-px h-2 w-2 border-t border-l border-black dark:border-white opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-within:opacity-100" />
+                <span className="pointer-events-none absolute -top-px -right-px h-2 w-2 border-t border-r border-black dark:border-white opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-within:opacity-100" />
+                <span className="pointer-events-none absolute -bottom-px -left-px h-2 w-2 border-b border-l border-black dark:border-white opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-within:opacity-100" />
+                <span className="pointer-events-none absolute -bottom-px -right-px h-2 w-2 border-b border-r border-black dark:border-white opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-within:opacity-100" />
 
                 {/* Small catalog index in corner */}
-                <span className="pointer-events-none absolute bottom-1.5 right-2 font-mono text-[0.5rem] leading-none tracking-[0.1em] text-black/25 smallcaps transition-colors duration-300 group-hover:text-black/55 group-focus-within:text-black/55">
+                <span className="pointer-events-none absolute bottom-1.5 right-2 font-mono text-[0.5rem] leading-none tracking-[0.1em] text-black/25 dark:text-white/20 smallcaps transition-colors duration-300 group-hover:text-black/55 dark:group-hover:text-white/40 group-focus-within:text-black/55 dark:group-focus-within:text-white/40">
                     {String(index + 1).padStart(2, '0')}
                 </span>
 
@@ -285,14 +303,14 @@ export const Skills = () => {
         <section
             ref={ref}
             id="skills"
-            className="relative w-full overflow-hidden border-b border-black/15 bg-[rgb(244,243,238)] px-5 py-20 sm:px-6 sm:py-24 md:px-12 md:py-28 lg:py-32"
+            className="relative w-full overflow-hidden border-b border-black/15 dark:border-white/10 bg-[rgb(244,243,238)] dark:bg-[rgb(13,12,10)] px-5 py-20 sm:px-6 sm:py-24 md:px-12 md:py-28 lg:py-32"
         >
             {/* tiny helper for injected SVGs */}
             <style>{`.skill-svg svg { width: 100%; height: 100%; }`}</style>
 
             {/* Backgrounds */}
-            <div className="absolute inset-0 grid-bg pointer-events-none opacity-60" />
-            <div className="absolute inset-0 dot-grid pointer-events-none" />
+            <div className="absolute inset-0 grid-bg pointer-events-none opacity-60 dark:opacity-40" />
+            <div className="absolute inset-0 dot-grid pointer-events-none dark:opacity-30" />
             <div className="absolute inset-0 grain pointer-events-none" />
 
             {/* Radial highlights */}
@@ -307,7 +325,7 @@ export const Skills = () => {
 
             {/* Vertical archive label */}
             <span
-                className="vertical-rl absolute right-3 top-1/2 z-10 hidden -translate-y-1/2 text-[0.68rem] text-black/45 smallcaps fade-up sm:block md:right-6"
+                className="vertical-rl absolute right-3 top-1/2 z-10 hidden -translate-y-1/2 text-[0.68rem] text-black/45 dark:text-white/30 smallcaps fade-up sm:block md:right-6"
                 style={{ animationDelay: '0.5s' }}
             >
                 The Toolkit · {skills.length} Instruments
@@ -316,17 +334,17 @@ export const Skills = () => {
             <div className="relative z-10 mx-auto w-full max-w-[1400px]">
                 {/* ── Top section plate ── */}
                 <div
-                    className="mb-14 flex items-center justify-between gap-4 border-b border-black/15 pb-3 fade-up sm:mb-20 md:mb-24"
+                    className="mb-14 flex items-center justify-between gap-4 border-b border-black/15 dark:border-white/10 pb-3 fade-up sm:mb-20 md:mb-24"
                     style={{ animationDelay: '0.3s' }}
                 >
-                    <span className="flex items-center gap-3 font-mono text-[0.62rem] leading-none tracking-[0.18em] text-black/45 smallcaps">
-                        <span className="block h-px w-6 bg-black/30" />
+                    <span className="flex items-center gap-3 font-mono text-[0.62rem] leading-none tracking-[0.18em] text-black/45 dark:text-white/30 smallcaps">
+                        <span className="block h-px w-6 bg-black/30 dark:bg-white/20" />
                         Vol. 002 / Skills
                     </span>
-                    <span className="hidden font-mono text-[0.62rem] tracking-[0.18em] text-black/35 smallcaps sm:inline">
+                    <span className="hidden font-mono text-[0.62rem] tracking-[0.18em] text-black/35 dark:text-white/25 smallcaps sm:inline">
                         Instruments in Daily Use
                     </span>
-                    <span className="font-mono text-[0.62rem] tracking-[0.18em] text-black/35 smallcaps">
+                    <span className="font-mono text-[0.62rem] tracking-[0.18em] text-black/35 dark:text-white/25 smallcaps">
                         {skills.length} Items
                     </span>
                 </div>
@@ -343,12 +361,12 @@ export const Skills = () => {
                     <div className="relative grid grid-cols-1 gap-10 lg:grid-cols-12 lg:gap-14">
                         <div className="relative z-10 lg:col-span-7">
                             <p
-                                className="mb-5 flex items-center gap-3 text-[0.72rem] leading-none text-black/65 smallcaps fade-up sm:text-[0.76rem]"
+                                className="mb-5 flex items-center gap-3 text-[0.72rem] leading-none text-black/65 dark:text-white/45 smallcaps fade-up sm:text-[0.76rem]"
                                 style={{ animationDelay: '0.4s' }}
                             >
-                                <span className="block h-px w-8 shrink-0 bg-black/40 sm:w-10" />
+                                <span className="block h-px w-8 shrink-0 bg-black/40 dark:bg-white/25 sm:w-10" />
                                 <span>Section 003 — The Toolkit</span>
-                                <span className="hidden shrink-0 font-mono text-black/40 xs:inline">— 003</span>
+                                <span className="hidden shrink-0 font-mono text-black/40 dark:text-white/25 xs:inline">— 003</span>
                             </p>
 
                             <h2
@@ -360,7 +378,7 @@ export const Skills = () => {
                                 <br />
                                 <span className="title-word">
                                     on the bench
-                                    <span className="hero-mark align-top font-normal italic text-black/40">III</span>
+                                    <span className="hero-mark align-top font-normal italic text-black/40 dark:text-white/25">III</span>
                                 </span>
                             </h2>
                         </div>
@@ -369,15 +387,15 @@ export const Skills = () => {
                             className="relative z-10 lg:col-span-5 lg:pt-12 fade-up"
                             style={{ animationDelay: '0.75s' }}
                         >
-                            <div className="mb-4 flex items-center gap-3 font-mono text-[0.6rem] leading-none tracking-[0.18em] text-black/40 smallcaps">
-                                <span className="block h-px w-6 bg-black/25" />
+                            <div className="mb-4 flex items-center gap-3 font-mono text-[0.6rem] leading-none tracking-[0.18em] text-black/40 dark:text-white/25 smallcaps">
+                                <span className="block h-px w-6 bg-black/25 dark:bg-white/15" />
                                 Note to the Reader
                             </div>
-                            <p className="font-serif-alt max-w-[30rem] text-[1.1rem] italic leading-[1.5] text-black/70 sm:text-[1.2rem]">
+                            <p className="font-serif-alt max-w-[30rem] text-[1.1rem] italic leading-[1.5] text-black/70 dark:text-white/55 sm:text-[1.2rem]">
                                 A contact sheet of the tools at hand — markup, frameworks,
                                 runtimes, and the low-code platforms that make up the daily
                                 kit.{' '}
-                                <span className="not-italic font-mono text-[0.7rem] tracking-[0.1em] text-black/55 smallcaps">
+                                <span className="not-italic font-mono text-[0.7rem] tracking-[0.1em] text-black/55 dark:text-white/40 smallcaps">
                                     Hover any plate to read the name.
                                 </span>
                             </p>
@@ -386,12 +404,12 @@ export const Skills = () => {
                 </div>
 
                 {/* ── The Manifest (single grid) ── */}
-                <section className="relative border-t border-black/20 fade-up" style={{ animationDelay: '0.4s' }}>
+                <section className="relative border-t border-black/20 dark:border-white/10 fade-up" style={{ animationDelay: '0.4s' }}>
                     {/* Top marginalia sitting on the border */}
-                    <span className="font-serif-alt absolute -top-[0.95rem] left-0 z-10 inline-block bg-[rgb(244,243,238)] pr-4 text-sm italic leading-none text-black/55">
+                    <span className="font-serif-alt absolute -top-[0.95rem] left-0 z-10 inline-block bg-[rgb(244,243,238)] dark:bg-[rgb(13,12,10)] pr-4 text-sm italic leading-none text-black/55 dark:text-white/40">
                         The Manifest.
                     </span>
-                    <span className="font-mono absolute -top-[0.75rem] right-0 z-10 hidden bg-[rgb(244,243,238)] pl-3 text-[0.6rem] leading-none tracking-[0.18em] text-black/40 smallcaps sm:inline-block">
+                    <span className="font-mono absolute -top-[0.75rem] right-0 z-10 hidden bg-[rgb(244,243,238)] dark:bg-[rgb(13,12,10)] pl-3 text-[0.6rem] leading-none tracking-[0.18em] text-black/40 dark:text-white/25 smallcaps sm:inline-block">
                         {String(skills.length).padStart(2, '0')} entries · 001 — {String(skills.length).padStart(3, '0')}
                     </span>
 
@@ -399,16 +417,16 @@ export const Skills = () => {
                         {/* Tiny meta row above grid */}
                         <header className="mb-8 flex flex-wrap items-end justify-between gap-x-6 gap-y-3 sm:mb-10">
                             <div>
-                                <div className="mb-2 flex items-center gap-3 font-mono text-[0.62rem] leading-none tracking-[0.18em] text-black/45 smallcaps">
-                                    <span className="block h-px w-5 bg-black/30" />
+                                <div className="mb-2 flex items-center gap-3 font-mono text-[0.62rem] leading-none tracking-[0.18em] text-black/45 dark:text-white/30 smallcaps">
+                                    <span className="block h-px w-5 bg-black/30 dark:bg-white/20" />
                                     All Instruments — unfiled
                                 </div>
-                                <p className="font-serif-alt text-[1rem] italic leading-tight text-black/55 sm:text-[1.1rem]">
+                                <p className="font-serif-alt text-[1rem] italic leading-tight text-black/55 dark:text-white/40 sm:text-[1.1rem]">
                                     — kept in one drawer, listed alphabetically by acquaintance.
                                 </p>
                             </div>
 
-                            <div className="flex items-center gap-3 font-mono text-[0.6rem] leading-none tracking-[0.18em] text-black/40 smallcaps">
+                            <div className="flex items-center gap-3 font-mono text-[0.6rem] leading-none tracking-[0.18em] text-black/40 dark:text-white/25 smallcaps">
                                 <span className="relative flex h-1.5 w-1.5">
                                     <span
                                         className="absolute inset-0 rounded-full pulse-soft"
@@ -427,7 +445,7 @@ export const Skills = () => {
                         </ul>
                     </div>
 
-                    <div className="border-t border-black/20" aria-hidden="true" />
+                    <div className="border-t border-black/20 dark:border-white/10" aria-hidden="true" />
                 </section>
 
                 {/* ── Closing flourish ── */}
@@ -435,28 +453,28 @@ export const Skills = () => {
                     className="mt-10 flex items-center justify-center gap-4 fade-up sm:mt-14"
                     style={{ animationDelay: '0.9s' }}
                 >
-                    <span className="block h-px w-16 bg-black/20 sm:w-24" />
-                    <span className="font-serif-alt text-base italic text-black/45 sm:text-lg">
+                    <span className="block h-px w-16 bg-black/20 dark:bg-white/[0.08] sm:w-24" />
+                    <span className="font-serif-alt text-base italic text-black/45 dark:text-white/30 sm:text-lg">
                         — fin du toolkit —
                     </span>
-                    <span className="block h-px w-16 bg-black/20 sm:w-24" />
+                    <span className="block h-px w-16 bg-black/20 dark:bg-white/[0.08] sm:w-24" />
                 </div>
 
                 {/* ── Bottom meta ── */}
-                <div className="mt-12 flex flex-wrap items-center justify-between gap-3 border-t border-black/15 pt-4 sm:mt-16">
-                    <span className="font-mono text-[0.62rem] tracking-[0.18em] text-black/40 smallcaps">
+                <div className="mt-12 flex flex-wrap items-center justify-between gap-3 border-t border-black/15 dark:border-white/10 pt-4 sm:mt-16">
+                    <span className="font-mono text-[0.62rem] tracking-[0.18em] text-black/40 dark:text-white/25 smallcaps">
                         [ 002 / 005 ] - Skills
                     </span>
-                    <span className="hidden font-mono text-[0.62rem] tracking-[0.18em] text-black/35 smallcaps sm:inline">
+                    <span className="hidden font-mono text-[0.62rem] tracking-[0.18em] text-black/35 dark:text-white/25 smallcaps sm:inline">
                         {skills.length} instruments · all cataloged
                     </span>
                     <a
                         href="#education"
-                        className="group inline-flex items-center gap-3 font-mono text-[0.62rem] leading-none tracking-[0.18em] text-black/55 smallcaps transition-colors hover:text-black"
+                        className="group inline-flex items-center gap-3 font-mono text-[0.62rem] leading-none tracking-[0.18em] text-black/55 dark:text-white/40 smallcaps transition-colors hover:text-black dark:hover:text-white"
                     >
                         Continue to Education
-                        <span className="relative block h-px w-10 overflow-hidden bg-black/25">
-                            <span className="absolute inset-0 origin-left scale-x-0 bg-black transition-transform duration-500 group-hover:scale-x-100" />
+                        <span className="relative block h-px w-10 overflow-hidden bg-black/25 dark:bg-white/20">
+                            <span className="absolute inset-0 origin-left scale-x-0 bg-black dark:bg-white transition-transform duration-500 group-hover:scale-x-100" />
                         </span>
                         <span className="transition-transform group-hover:translate-x-1">↓</span>
                     </a>

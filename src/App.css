@@ -1,6 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,350..900,0..100,0..1;1,9..144,350..900,0..100,0..1&family=Instrument+Serif:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap');
 
 @import "tailwindcss";
+
+/* Tailwind v4: make dark: variant respond to .dark class on <html> */
+@custom-variant dark (&:where(.dark, .dark *));
 
 @font-face {
   font-family: 'Inter Variable';
@@ -10,11 +14,11 @@
   font-display: swap;
   font-named-instance: 'Regular';
 }
-/* Custom breakpoint for very small screens (380px phones and up) */
+
 @theme {
   --breakpoint-xs: 380px;
 }
-  
+
 @layer base {
   * {
     @apply box-border;
@@ -29,6 +33,18 @@
     --black-06: rgba(10, 10, 10, 0.06);
   }
 
+  /* ── Dark mode tokens ── */
+  .dark {
+    --bg: rgb(13, 12, 10);
+    --black: #f0efe9;
+    --black-60: rgba(240, 239, 233, 0.6);
+    --black-30: rgba(240, 239, 233, 0.3);
+    --black-12: rgba(240, 239, 233, 0.12);
+    --black-06: rgba(240, 239, 233, 0.06);
+    --blob-core-c: rgba(240, 239, 233, 0.88);
+    --blob-core-c2: rgba(240, 239, 233, 0.45);
+  }
+
   html {
     scroll-behavior: smooth;
   }
@@ -37,18 +53,43 @@
     @apply overflow-x-hidden;
     background: var(--bg);
     color: var(--black);
-    font-family: 'Fraunces', serif;
+    font-family: "Bricolage Grotesque", sans-serif;
     font-feature-settings: "ss01" on, "ss02" on;
     -webkit-font-smoothing: antialiased;
     letter-spacing: 0;
+    transition: background 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+      color 0.45s cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
 
 @layer components {
+
   .font-serif-alt,
   .title-word em,
   .hero-mark {
     font-family: 'Instrument Serif', serif;
+    color: inherit;
+    transition: color 0.45s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Serif dark mode — CSS-level fallback so these always flip
+     even if Tailwind's dark: variants aren't active */
+  .dark .font-serif-alt {
+    color: rgba(240, 239, 233, 0.55);
+  }
+
+  /* Specific opacity overrides matching the Hero usage */
+  .dark p.font-serif-alt,
+  .dark div.font-serif-alt {
+    color: rgba(240, 239, 233, 0.45);
+  }
+
+  .dark .hero-title .title-word em {
+    color: rgba(240, 239, 233, 0.9);
+  }
+
+  .dark .hero-mark {
+    color: rgba(240, 239, 233, 0.25);
   }
 
   .hero-title {
@@ -57,6 +98,8 @@
     line-height: 0.9;
     letter-spacing: 0;
     text-wrap: balance;
+    color: var(--black);
+    transition: color 0.45s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .hero-mark {
@@ -71,7 +114,122 @@
     letter-spacing: 0;
   }
 
-  /* Grid background with calmer density on small screens */
+  /* ────────────────────────────────────────────
+     Theme toggle button
+  ──────────────────────────────────────────── */
+  .theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 16px 7px 10px;
+    border: 0.5px solid rgba(10, 10, 10, 0.22);
+    border-radius: 999px;
+    background: transparent;
+    cursor: pointer;
+    transition:
+      background 0.3s,
+      border-color 0.3s,
+      transform 0.15s;
+  }
+
+  .theme-toggle:hover {
+    background: rgba(10, 10, 10, 0.05);
+  }
+
+  .theme-toggle:active {
+    transform: scale(0.97);
+  }
+
+  .dark .theme-toggle {
+    border-color: rgba(240, 239, 233, 0.2);
+  }
+
+  .dark .theme-toggle:hover {
+    background: rgba(240, 239, 233, 0.07);
+  }
+
+  /* Track */
+  .theme-toggle__track {
+    position: relative;
+    display: block;
+    width: 38px;
+    height: 21px;
+    border-radius: 999px;
+    background: rgba(10, 10, 10, 0.12);
+    flex-shrink: 0;
+    transition: background 0.4s;
+  }
+
+  .dark .theme-toggle__track {
+    background: rgba(240, 239, 233, 0.22);
+  }
+
+  /* Thumb */
+  .theme-toggle__thumb {
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 15px;
+    height: 15px;
+    border-radius: 50%;
+    background: rgba(10, 10, 10, 0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+      transform 0.42s cubic-bezier(0.34, 1.56, 0.64, 1),
+      background 0.4s;
+  }
+
+  .dark .theme-toggle__thumb {
+    transform: translateX(17px);
+    background: rgba(240, 239, 233, 0.92);
+  }
+
+  /* Icons inside thumb */
+  .theme-toggle__icon {
+    position: absolute;
+    color: var(--bg);
+    transition: opacity 0.25s, transform 0.3s;
+  }
+
+  .theme-toggle__icon--sun {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+
+  .theme-toggle__icon--moon {
+    opacity: 0;
+    transform: rotate(-30deg) scale(0.7);
+  }
+
+  .dark .theme-toggle__icon--sun {
+    opacity: 0;
+    transform: rotate(30deg) scale(0.7);
+  }
+
+  .dark .theme-toggle__icon--moon {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
+  }
+
+  /* Label */
+  .theme-toggle__label {
+    font-size: 0.68rem;
+    letter-spacing: 0.14em;
+    color: rgba(10, 10, 10, 0.6);
+    user-select: none;
+    transition: color 0.3s;
+    white-space: nowrap;
+  }
+
+  .dark .theme-toggle__label {
+    color: rgba(240, 239, 233, 0.45);
+  }
+
+  /* ────────────────────────────────────────────
+     Backgrounds (grid, dot, grain)
+  ──────────────────────────────────────────── */
   .grid-bg {
     background-image:
       linear-gradient(to right, rgba(10, 10, 10, 0.06) 1px, transparent 1px),
@@ -79,14 +237,20 @@
     background-size: 44px 44px;
     background-position: -1px -1px;
     -webkit-mask-image: radial-gradient(ellipse 95% 75% at 50% 50%, #000 26%, transparent 88%);
-            mask-image: radial-gradient(ellipse 95% 75% at 50% 50%, #000 26%, transparent 88%);
+    mask-image: radial-gradient(ellipse 95% 75% at 50% 50%, #000 26%, transparent 88%);
+  }
+
+  .dark .grid-bg {
+    background-image:
+      linear-gradient(to right, rgba(240, 239, 233, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(240, 239, 233, 0.05) 1px, transparent 1px);
   }
 
   @media (min-width: 768px) {
     .grid-bg {
       background-size: 64px 64px;
       -webkit-mask-image: radial-gradient(ellipse 75% 65% at 50% 50%, #000 30%, transparent 88%);
-              mask-image: radial-gradient(ellipse 75% 65% at 50% 50%, #000 30%, transparent 88%);
+      mask-image: radial-gradient(ellipse 75% 65% at 50% 50%, #000 30%, transparent 88%);
     }
   }
 
@@ -95,15 +259,19 @@
     background-size: 24px 24px;
     background-position: 0 0;
     -webkit-mask-image: radial-gradient(ellipse 62% 46% at 50% 50%, #000 18%, transparent 80%);
-            mask-image: radial-gradient(ellipse 62% 46% at 50% 50%, #000 18%, transparent 80%);
+    mask-image: radial-gradient(ellipse 62% 46% at 50% 50%, #000 18%, transparent 80%);
     opacity: 0.42;
+  }
+
+  .dark .dot-grid {
+    background-image: radial-gradient(rgba(240, 239, 233, 0.12) 1px, transparent 1px);
   }
 
   @media (min-width: 768px) {
     .dot-grid {
       background-size: 32px 32px;
       -webkit-mask-image: radial-gradient(ellipse 50% 40% at 50% 50%, #000 20%, transparent 80%);
-              mask-image: radial-gradient(ellipse 50% 40% at 50% 50%, #000 20%, transparent 80%);
+      mask-image: radial-gradient(ellipse 50% 40% at 50% 50%, #000 20%, transparent 80%);
     }
   }
 
@@ -113,12 +281,21 @@
     mix-blend-mode: multiply;
   }
 
+  .dark .grain {
+    mix-blend-mode: screen;
+    opacity: 0.03;
+  }
+
+  /* ────────────────────────────────────────────
+     Animations
+  ──────────────────────────────────────────── */
   @keyframes fadeUp {
     from {
       opacity: 0;
       transform: translateY(24px);
       filter: blur(5px);
     }
+
     to {
       opacity: 1;
       transform: translateY(0);
@@ -136,14 +313,17 @@
       transform: scaleX(1) translateX(0);
       transform-origin: left;
     }
+
     49% {
       transform: scaleX(0.15) translateX(54px);
       transform-origin: left;
     }
+
     50% {
       transform: scaleX(0.15) translateX(54px);
       transform-origin: right;
     }
+
     100% {
       transform: scaleX(1) translateX(0);
       transform-origin: right;
@@ -155,10 +335,13 @@
   }
 
   @keyframes pulse-soft {
-    0%, 100% {
+
+    0%,
+    100% {
       opacity: 1;
       transform: scale(1);
     }
+
     50% {
       opacity: 0.55;
       transform: scale(1.25);
@@ -169,6 +352,9 @@
     animation: pulse-soft 2s infinite ease-in-out;
   }
 
+  /* ────────────────────────────────────────────
+     Cursor
+  ──────────────────────────────────────────── */
   .cursor-dot {
     position: fixed;
     pointer-events: none;
@@ -184,10 +370,18 @@
     left: -100px;
   }
 
+  .dark .cursor-dot {
+    mix-blend-mode: screen;
+  }
+
   .cursor-dot.big {
     width: 52px;
     height: 52px;
     background: rgba(10, 10, 10, 0.12);
+  }
+
+  .dark .cursor-dot.big {
+    background: rgba(240, 239, 233, 0.1);
   }
 
   @media (pointer: coarse) {
@@ -196,6 +390,9 @@
     }
   }
 
+  /* ────────────────────────────────────────────
+     Nav
+  ──────────────────────────────────────────── */
   .nav-link {
     @apply relative pb-1;
   }
@@ -215,6 +412,9 @@
     right: 0;
   }
 
+  /* ────────────────────────────────────────────
+     Misc
+  ──────────────────────────────────────────── */
   .vertical-rl {
     writing-mode: vertical-rl;
     text-orientation: mixed;
@@ -297,10 +497,15 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
+
     .fade-up,
     .scroll-line,
     .pulse-soft,
-    .title-word {
+    .title-word,
+    .theme-toggle,
+    .theme-toggle__thumb,
+    .theme-toggle__icon,
+    body {
       animation: none !important;
       transition: none !important;
       opacity: 1 !important;
