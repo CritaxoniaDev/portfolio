@@ -1,5 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,350..900,0..100,0..1;1,9..144,350..900,0..100,0..1&family=Instrument+Serif:ital@0;1&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&display=swap');
+/* Bricolage Grotesque, Instrument Serif and Fraunces are self-hosted via
+   next/font in `app/layout.tsx`, which exposes them on <html> as
+   --font-bricolage-grotesque, --font-instrument-serif and --font-fraunces.
+   Don't move them back to `@import url(...)`: Turbopack strips remote CSS
+   imports, so the fonts silently fall back to system faces. */
 
 @import "tailwindcss";
 
@@ -53,7 +56,7 @@
     @apply overflow-x-hidden;
     background: var(--bg);
     color: var(--black);
-    font-family: "Bricolage Grotesque", sans-serif;
+    font-family: var(--font-bricolage-grotesque), sans-serif;
     font-feature-settings: "ss01" on, "ss02" on;
     -webkit-font-smoothing: antialiased;
     letter-spacing: 0;
@@ -67,7 +70,7 @@
   .font-serif-alt,
   .title-word em,
   .hero-mark {
-    font-family: 'Instrument Serif', serif;
+    font-family: var(--font-instrument-serif), serif;
     color: inherit;
     transition: color 0.45s cubic-bezier(0.4, 0, 0.2, 1);
   }

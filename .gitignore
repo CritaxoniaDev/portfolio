@@ -8,9 +8,25 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
-dist
-dist-ssr
 *.local
+
+# Next.js
+.next
+out
+next-env.d.ts
+
+# TypeScript
+*.tsbuildinfo
+
+# Deployment
+.vercel
+
+# Sentry
+.sentryclirc
+.env.sentry-build-plugin
+
+# Env
+.env*.local
 
 # Editor directories and files
 .vscode/*

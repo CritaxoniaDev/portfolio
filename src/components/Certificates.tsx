@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { useScrollReveal } from './hooks/useScrollReveal';
 

@@ -1,43 +1,46 @@
-import { createContext, useContext, useEffect, useState } from 'react';
+'use client';
+
+import type { ReactNode } from 'react';
+import { useSyncExternalStore } from 'react';
+import { ThemeProvider as NextThemesProvider, useTheme as useNextTheme } from 'next-themes';
 
 type Theme = 'light' | 'dark';
 
-type ThemeContextValue = {
-    theme: Theme;
-    toggleTheme: () => void;
-};
+/* next-themes owns the `dark` class on <html>, the `theme` localStorage key, and
+   the blocking script that applies both before first paint. */
+export const ThemeProvider = ({ children }: { children: ReactNode }) => (
+    <NextThemesProvider
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+        storageKey="theme"
+    >
+        {children}
+    </NextThemesProvider>
+);
 
-const ThemeContext = createContext<ThemeContextValue | null>(null);
+/* Reads false on the server and during hydration, true immediately after. */
+const subscribeToHydration = () => () => {};
+const hydratedOnClient = () => true;
+const hydratedOnServer = () => false;
 
-export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
-    const [theme, setTheme] = useState<Theme>(() => {
-        if (typeof window === 'undefined') return 'light';
-        const stored = localStorage.getItem('theme') as Theme | null;
-        if (stored) return stored;
-        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    });
-
-    useEffect(() => {
-        const root = document.documentElement;
-        if (theme === 'dark') {
-            root.classList.add('dark');
-        } else {
-            root.classList.remove('dark');
-        }
-        localStorage.setItem('theme', theme);
-    }, [theme]);
-
-    const toggleTheme = () => setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
-
-    return (
-        <ThemeContext.Provider value={{ theme, toggleTheme }}>
-            {children}
-        </ThemeContext.Provider>
-    );
-};
-
+/**
+ * Adapts next-themes to the `{ theme, toggleTheme }` shape the sections use.
+ *
+ * next-themes can only resolve the stored/system theme on the client, so the
+ * hydrating render has to keep saying `light` — otherwise every component that
+ * branches on `theme` (Hero's toggle, Marquee's inversion, the Footer marks)
+ * would hydrate with different markup than the server sent. Only JS-driven
+ * details settle after hydration; the `dark` class itself is already correct,
+ * so nothing flashes.
+ */
 export const useTheme = () => {
-    const ctx = useContext(ThemeContext);
-    if (!ctx) throw new Error('useTheme must be used inside <ThemeProvider>');
-    return ctx;
+    const { resolvedTheme, setTheme } = useNextTheme();
+    const hydrated = useSyncExternalStore(subscribeToHydration, hydratedOnClient, hydratedOnServer);
+    const theme: Theme = hydrated && resolvedTheme === 'dark' ? 'dark' : 'light';
+
+    return {
+        theme,
+        toggleTheme: () => setTheme(theme === 'light' ? 'dark' : 'light'),
+    };
 };

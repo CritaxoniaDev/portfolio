@@ -6,8 +6,10 @@ Read this file before making changes. These rules encode hard-won decisions; dev
 
 ## 1. Stack & versions
 
-- **Vite + React + TypeScript**
-- **Tailwind CSS v4** — no `tailwind.config.ts` exists, and one should not be created. All theme/variant config lives in `globals.css`.
+- **Next.js 16 (App Router) + React 19 + TypeScript**
+- Everything ships from `src/app/page.tsx` — a single page composed of section components. `src/app/layout.tsx` owns `<html>`/`<body>`, the `next/font` declarations (§14), the `metadata` export, JSON-LD, and `<ThemeProvider>` (§2).
+- Every section component is a **client component** (`'use client'` at the top) — they all use hooks, browser APIs, or both. New sections need the directive too.
+- **Tailwind CSS v4** — via `@tailwindcss/postcss` (`postcss.config.mjs`). No `tailwind.config.ts` exists, and one should not be created. All theme/variant config lives in `src/app/globals.css`.
 - Dark mode is **class-based**, enabled by this line near the top of `globals.css`:
   ```css
   @custom-variant dark (&:where(.dark, .dark *));
@@ -18,7 +20,7 @@ Read this file before making changes. These rules encode hard-won decisions; dev
 
 ## 2. Theme state — single source of truth
 
-Theme state lives in **`src/context/ThemeContext.tsx`** and is consumed via `useTheme()`. There is no standalone `useTheme.ts` hook — that pattern was tried and abandoned because each component instantiated its own isolated state.
+Theme state lives in **`src/context/ThemeContext.tsx`** and is consumed via `useTheme()`. There is no standalone `useTheme.ts` hook — that pattern was tried and abandoned because each component instantiated its own isolated state. Import from `../context/ThemeContext`, never from `next-themes` directly: that returns `theme`/`setTheme` (with `'system'` in play) instead of the `{ theme, toggleTheme }` shape every section expects.
 
 ```tsx
 // ✅ Correct
@@ -29,10 +31,15 @@ const { theme, toggleTheme } = useTheme();
 import { useTheme } from './hooks/useTheme';
 ```
 
-The `ThemeProvider` must wrap the app in `main.tsx`. It:
-1. Reads initial state from `localStorage` then `prefers-color-scheme`.
-2. Toggles the `dark` class on `<html>`.
-3. Persists to `localStorage` on change.
+`ThemeContext.tsx` is a thin adapter over **next-themes** — that library owns the mechanism, this file owns the API the sections consume:
+
+1. `ThemeProvider` (wrapping `{children}` in `src/app/layout.tsx`) is `next-themes`' provider configured with `attribute="class"`, `defaultTheme="system"`, `enableSystem`, `storageKey="theme"`. It injects its own blocking script, so the `dark` class lands before first paint and nothing flashes.
+2. `useTheme()` maps `resolvedTheme` down to `'light' | 'dark'` and exposes `toggleTheme()`. Sections never see `'system'`.
+3. The hook gates on a `useSyncExternalStore` hydration flag, so the hydrating render always reports `'light'` — matching SSR. Remove that gate and every component branching on `theme` (Hero's toggle, Marquee's inversion, the Footer marks) throws a hydration mismatch.
+
+`<html>` keeps `suppressHydrationWarning` — next-themes mutates its `class` and `style.colorScheme` before React hydrates. Don't pass `disableTransitionOnChange`: the 0.45s theme crossfade in §9 is deliberate.
+
+Do not hand-roll theme state with `useState` + `useEffect` here again: on the server that initial state can't see `localStorage`, which is exactly what causes hydration mismatches and the flash.
 
 ---
 
@@ -91,7 +98,7 @@ Do not invent new opacity steps inside this range. Pick the closest rung.
 
 ## 5. Serif text (`Instrument Serif`) — CSS-level fallback
 
-Serif text uses the `font-serif-alt` class. The class sets `font-family: 'Instrument Serif', serif` and nothing else — color is owned by Tailwind utility classes per-element.
+Serif text uses the `font-serif-alt` class. The class sets `font-family: var(--font-instrument-serif), serif` (see §14) and nothing else — color is owned by Tailwind utility classes per-element.
 
 However, `globals.css` has a **CSS-level fallback** that catches anything missing a `dark:` variant:
 
@@ -209,6 +216,7 @@ Component-scoped keyframes go inside an inline `<style>{`...`}</style>` block in
 - Hooks in `src/hooks/`.
 - Context in `src/context/`.
 - Each section component exports a named function (`export const Hero = () => { ... }`), not a default export.
+- The one exception is App Router files (`src/app/layout.tsx`, `src/app/page.tsx`) — Next requires a default export there.
 - Component files end with a trailing newline.
 
 ---
@@ -220,8 +228,10 @@ Component-scoped keyframes go inside an inline `<style>{`...`}</style>` block in
 - ❌ Use `mix-blend-multiply` on text — it disappears in dark mode. (Was removed from `Navigation.tsx`'s main row.)
 - ❌ Hardcode `rgba(10, 10, 10, ...)` for theme-aware properties. Use CSS variables or `dark:` variants.
 - ❌ Set `background:` via inline `style` for full-section backgrounds that need to flip. Use Tailwind `bg-[...] dark:bg-[...]` so they respond to theme.
-- ❌ Introduce default exports for components.
-- ❌ Add `font-family` declarations inside JSX — use `.font-serif-alt`, the body's Bricolage default, or `style={{ fontFamily: 'Inter Variable' }}` for the existing three families. No new fonts without discussion.
+- ❌ Introduce default exports for components (App Router route files excepted — see §11).
+- ❌ Put `<meta>`/`<title>` tags in components — page metadata belongs in the `metadata` export of `src/app/layout.tsx`.
+- ❌ Add `font-family` declarations inside JSX — use `.font-serif-alt`, the body's Bricolage default, or `style={{ fontFamily: 'Inter Variable' }}` for the existing three families. No new fonts without discussion. (SVG `<text>`/`<tspan>` can't use those classes, so they carry `style={{ fontFamily: 'var(--font-…)' }}` — that's the only exception.)
+- ❌ Load fonts with `@import url('https://fonts.googleapis.com/...')` in `globals.css` — **Turbopack strips remote CSS imports**, so the font silently falls back to a system face. Google fonts go through `next/font/google` in `src/app/layout.tsx` (see §14).
 
 ---
 
@@ -237,3 +247,47 @@ Checklist:
 6. For every `bg-black/XX` or `border-black/XX`, add the dark variant.
 7. Test by toggling theme: every element should crossfade, nothing should stay light-on-light or dark-on-dark.
 8. Test with `prefers-reduced-motion: reduce` enabled — entrance animations should disappear cleanly.
+---
+
+## 14. Fonts
+
+Four families, three of them self-hosted through `next/font/google` in `src/app/layout.tsx`:
+
+| Family | Loaded by | Consumed as |
+|---|---|---|
+| Bricolage Grotesque | `next/font` (`opsz` axis) | `body` default — `var(--font-bricolage-grotesque)` |
+| Instrument Serif | `next/font` (400, normal + italic) | `.font-serif-alt`, `.title-word em`, `.hero-mark` — `var(--font-instrument-serif)` |
+| Fraunces | `next/font` (`SOFT`, `WONK`, `opsz`, normal + italic) | signature / postmark SVG marks — `var(--font-fraunces)` |
+| Inter Variable | local `@font-face` in `globals.css` (`public/fonts/`) | `style={{ fontFamily: 'Inter Variable' }}` on body copy |
+
+Each `next/font` call declares a `variable`, and the three variable classes go on `<html>` in the
+root layout. Never reference these families by their literal name (`'Instrument Serif', serif`) —
+`next/font` renames them at build time, so only the CSS variable resolves.
+
+Adding a font means: import it in `layout.tsx`, give it a `variable`, append that class to `<html>`,
+then use `var(--font-…)` in `globals.css`. Keep `display: 'swap'`.
+
+---
+
+## 15. Error monitoring (Sentry)
+
+`@sentry/nextjs` is wired through three files — keep them in sync when changing SDK config:
+
+| File | Runtime |
+|---|---|
+| `instrumentation.ts` | node + edge `register()`, plus `onRequestError` for server render / route handler failures |
+| `instrumentation-client.ts` | browser init, plus `onRouterTransitionStart` for navigation traces |
+| `src/app/global-error.tsx` | React render errors that escape the root layout |
+
+Rules of thumb:
+
+- **Never hardcode the DSN.** It comes from `NEXT_PUBLIC_SENTRY_DSN`; with the var unset the SDK
+  initialises to a no-op, which is what keeps local runs and forks quiet.
+- `debug` follows `NODE_ENV !== 'production'`. Don't leave it on in production — it's console noise
+  for visitors and adds weight.
+- `global-error.tsx` replaces the root layout when it renders, so `globals.css`, the font variables
+  and the theme class are all unavailable there. Style it with inline styles only (that's why it
+  doesn't follow §4's opacity ladder), and keep it dependency-free so it can't fail the same way
+  the page did.
+- This project builds with **Turbopack**, so webpack-only Sentry options (`disableLogger`,
+  `automaticVercelMonitors`) do nothing but emit deprecation warnings. Don't add them back.

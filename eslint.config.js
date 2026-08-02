@@ -6,14 +6,14 @@ import tseslint from 'typescript-eslint'
 import { defineConfig, globalIgnores } from 'eslint/config'
 
 export default defineConfig([
-  globalIgnores(['dist']),
+  globalIgnores(['.next', 'out', 'next-env.d.ts']),
   {
     files: ['**/*.{ts,tsx}'],
     extends: [
       js.configs.recommended,
       tseslint.configs.recommended,
       reactHooks.configs.flat.recommended,
-      reactRefresh.configs.vite,
+      reactRefresh.configs.next,
     ],
     languageOptions: {
       globals: globals.browser,

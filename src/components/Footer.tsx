@@ -1,3 +1,5 @@
+'use client';
+
 import { useScrollReveal } from './hooks/useScrollReveal';
 import { useTheme } from '../context/ThemeContext';
 
@@ -269,7 +271,7 @@ export const Footer = () => {
                         >
                             <tspan
                                 className="sig-fill"
-                                fontFamily="'Fraunces', serif"
+                                style={{ fontFamily: 'var(--font-fraunces), serif' }}
                                 fontWeight="900"
                                 fill={ink}
                             >
@@ -278,7 +280,7 @@ export const Footer = () => {
                             <tspan
                                 className="sig-stroke"
                                 dx="36"
-                                fontFamily="'Instrument Serif', serif"
+                                style={{ fontFamily: 'var(--font-instrument-serif), serif' }}
                                 fontStyle="italic"
                                 fill="none"
                                 stroke={ink}

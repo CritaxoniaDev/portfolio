@@ -86,7 +86,7 @@
   .trainJourney,
   .smoke1, .smoke2, .smoke3,
   .signalLight,
-  [class*="spark"],
+  .sparkA, .sparkB, .sparkC, .sparkD, .sparkE,
   .transitTrack,
   .revealWord {
     animation: none !important;

@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 
 const SHOW_AFTER = 400; // px scrolled before button reveals

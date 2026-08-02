@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { useScrollReveal } from './hooks/useScrollReveal';
@@ -47,8 +49,8 @@ const Postmark = ({ isDark }: { isDark: boolean }) => {
             </text>
 
             {/* center mark */}
-            <text x="46" y="44" textAnchor="middle" fontSize="13" fontFamily="'Fraunces', serif" fontWeight="900" fill={textColor}>N°</text>
-            <text x="46" y="58" textAnchor="middle" fontSize="13" fontFamily="'Instrument Serif', serif" fontStyle="italic" fill={textColor}>001</text>
+            <text x="46" y="44" textAnchor="middle" fontSize="13" style={{ fontFamily: 'var(--font-fraunces), serif' }} fontWeight="900" fill={textColor}>N°</text>
+            <text x="46" y="58" textAnchor="middle" fontSize="13" style={{ fontFamily: 'var(--font-instrument-serif), serif' }} fontStyle="italic" fill={textColor}>001</text>
 
             {/* curved text — bottom */}
             <text
