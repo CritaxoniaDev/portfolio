@@ -13,7 +13,7 @@ const connect = [
 ];
 
 const sections = [
-    { label: 'Home',     href: '#home'     },
+    { label: 'Home',     href: '#top'      },
     { label: 'About',    href: '#about'    },
     { label: 'Skills',   href: '#skills'   },
     { label: 'Projects', href: '#projects' },
@@ -23,7 +23,7 @@ const sections = [
 const colophon = [
     { label: 'Year',         value: 'MMXXVI'                    },
     { label: 'Set in',       value: 'Fraunces & Instrument Serif' },
-    { label: 'Built with',   value: 'React · Tailwind · Vite'   },
+    { label: 'Built with',   value: 'Next.js · React · Tailwind' },
     { label: 'Crafted in',   value: 'Manila, Philippines'       },
 ];
 
@@ -41,7 +41,7 @@ export const Footer = () => {
     return (
         <footer
             ref={ref}
-            id="contact"
+            id="colophon"
             className="relative w-full overflow-hidden border-t border-black/15 dark:border-white/10 bg-[rgb(244,243,238)] dark:bg-[rgb(13,12,10)] px-5 pt-20 pb-10 sm:px-6 sm:pt-24 sm:pb-12 md:px-12 md:pt-28 md:pb-14"
         >
             <style>{`

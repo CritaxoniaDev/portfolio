@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useScrollReveal } from './hooks/useScrollReveal';
 
 /* ──────────────────────────────────────────────────────────────
@@ -194,11 +195,12 @@ const Laptop = ({ image, title, url }: LaptopProps) => (
 
                 {/* The image */}
                 <div className="relative flex-1 overflow-hidden bg-[rgb(225,222,212)] dark:bg-[rgb(22,21,18)]">
-                    <img
+                    <Image
                         src={image}
                         alt={`Screenshot of ${title}`}
-                        loading="lazy"
-                        className="absolute inset-0 block h-full w-full object-cover object-top"
+                        fill
+                        sizes="(max-width: 1024px) 100vw, 60vw"
+                        className="object-cover object-top"
                         onError={(e) => {
                             const el = e.currentTarget as HTMLImageElement;
                             el.style.display = 'none';

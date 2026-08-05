@@ -1,6 +1,7 @@
 'use client';
 
 import { Fragment } from 'react';
+import Image from 'next/image';
 import { useScrollReveal } from './hooks/useScrollReveal';
 
 type Experience = {
@@ -119,15 +120,19 @@ const EntryCard = ({ exp }: { exp: Experience }) => {
                 <div className="mt-4 mb-5 flex items-center gap-3 border-b border-black/15 dark:border-white/10 pb-5">
                     {/* Logo plate */}
                     <div className="flex h-11 w-11 shrink-0 items-center justify-center border border-black/20 dark:border-white/15 bg-white/40 dark:bg-white/85">
-                        <img
-                            src={exp.logo}
-                            alt={`${exp.company} logo`}
-                            className="max-h-7 max-w-[28px] object-contain"
-                            loading="lazy"
-                            onError={(e) => {
-                                (e.currentTarget as HTMLImageElement).style.display = 'none';
-                            }}
-                        />
+                        <span className="relative block h-7 w-7">
+                            <Image
+                                src={exp.logo}
+                                alt={`${exp.company} logo`}
+                                fill
+                                sizes="28px"
+                                unoptimized={exp.logo.endsWith('.svg')}
+                                className="object-contain"
+                                onError={(e) => {
+                                    (e.currentTarget as HTMLImageElement).style.display = 'none';
+                                }}
+                            />
+                        </span>
                     </div>
                     <div className="min-w-0">
                         <p className="text-[1rem] font-medium leading-tight text-black/85 dark:text-white/80">{exp.company}</p>

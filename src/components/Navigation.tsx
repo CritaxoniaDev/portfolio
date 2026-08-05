@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import { useManilaTime } from './hooks/useManilaTime';
 
 type NavLink = {
     href: string;
@@ -22,7 +23,7 @@ export const Navigation = () => {
     const [open, setOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [activeSection, setActiveSection] = useState<string>('');
-    const [time, setTime] = useState<string>('');
+    const time = useManilaTime();
 
     const toggleRef = useRef<HTMLButtonElement>(null);
 
@@ -64,29 +65,6 @@ export const Navigation = () => {
         sections.forEach((s) => observer.observe(s));
 
         return () => observer.disconnect();
-    }, []);
-
-    // ── Live studio clock (Manila)
-    useEffect(() => {
-        const update = () => {
-            try {
-                const formatter = new Intl.DateTimeFormat('en-US', {
-                    timeZone: 'Asia/Manila',
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    hour12: false,
-                });
-
-                setTime(formatter.format(new Date()));
-            } catch {
-                // noop
-            }
-        };
-
-        update();
-        const id = setInterval(update, 30_000);
-
-        return () => clearInterval(id);
     }, []);
 
     // ── Lock body scroll when menu open
@@ -137,14 +115,14 @@ export const Navigation = () => {
                     >
                         <span className="flex items-center gap-3">
                             <span className="block h-px w-5 bg-black/25 dark:bg-white/20" />
-                            Studio of One · Independent Practice
+                            Software Engineering · Manila, Philippines
                         </span>
                         <span className="flex items-center gap-2">
                             <span className="inline-block h-1 w-1 rounded-full bg-[rgb(118,138,102)]" />
-                            Manila — {time || '—:—'}
+                            Manila — {time}
                         </span>
                         <span className="flex items-center gap-3">
-                            Portfolio · Vol. 01 — MMXXIV
+                            Portfolio · Vol. 01 — MMXXVI
                             <span className="block h-px w-5 bg-black/25 dark:bg-white/20" />
                         </span>
                     </div>
@@ -166,7 +144,7 @@ export const Navigation = () => {
                                     Gian Raphael Alcantara
                                 </span>
                                 <span className="font-serif-alt mt-1 hidden text-[0.72rem] italic leading-none text-black/45 dark:text-white/35 sm:inline">
-                                    a studio of one
+                                    software engineer
                                 </span>
                             </span>
                         </a>
@@ -254,6 +232,7 @@ export const Navigation = () => {
                     : 'pointer-events-none opacity-0'
                     }`}
                 aria-hidden={!open}
+                inert={!open}
                 role="dialog"
                 aria-modal={open}
                 aria-label="Site navigation"
@@ -280,7 +259,7 @@ export const Navigation = () => {
                         transition: `opacity 0.6s ${open ? '0.45s' : '0s'}`,
                     }}
                 >
-                    The Index · MMXXIV
+                    The Index · MMXXVI
                 </span>
 
                 {/* Corner ticks */}
@@ -310,14 +289,14 @@ export const Navigation = () => {
                 >
                     <span className="flex items-center gap-3">
                         <span className="block h-px w-5 bg-black/30 dark:bg-white/20" />
-                        Menu / 005 Sections
+                        Menu / 007 Sections
                     </span>
                     <span className="flex items-center gap-2">
                         <span
                             className="inline-block h-1 w-1 rounded-full pulse-soft"
                             style={{ background: 'rgb(118, 138, 102)' }}
                         />
-                        {time || '—:—'} MNL
+                        {time} MNL
                     </span>
                 </div>
 
@@ -411,8 +390,8 @@ export const Navigation = () => {
 
                     {/* Bottom meta */}
                     <div className="flex items-center justify-between font-mono text-[0.6rem] tracking-[0.18em] text-black/40 dark:text-white/25 smallcaps">
-                        <span>Est. 2019 · Independent</span>
-                        <span>Portfolio · MMXXIV</span>
+                        <span>Manila · Philippines</span>
+                        <span>Portfolio · MMXXVI</span>
                     </div>
                 </div>
             </div>

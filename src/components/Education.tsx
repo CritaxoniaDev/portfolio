@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { useScrollReveal } from './hooks/useScrollReveal';
 
 type EducationItem = {
@@ -278,10 +279,13 @@ export const Education = () => {
                                                 <span className="absolute bottom-0 right-0 h-3 w-3 border-b border-r border-black dark:border-white" />
 
                                                 <div className="relative aspect-square overflow-hidden bg-[rgb(244,243,238)] dark:bg-[rgb(13,12,10)]">
-                                                    <img
+                                                    <Image
                                                         src={item.logo}
                                                         alt={`${item.institution} crest`}
-                                                        className="absolute inset-0 h-full w-full object-contain p-4"
+                                                        fill
+                                                        sizes="(max-width: 768px) 45vw, 240px"
+                                                        unoptimized={item.logo.endsWith('.svg')}
+                                                        className="object-contain p-4"
                                                     />
                                                     {/* Subtle vignette */}
                                                     <div

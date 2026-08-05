@@ -8,12 +8,20 @@ type Theme = 'light' | 'dark';
 
 /* next-themes owns the `dark` class on <html>, the `theme` localStorage key, and
    the blocking script that applies both before first paint. */
-export const ThemeProvider = ({ children }: { children: ReactNode }) => (
+export const ThemeProvider = ({
+    children,
+    nonce,
+}: {
+    children: ReactNode;
+    /* Passed through so next-themes' blocking script satisfies the CSP. */
+    nonce?: string;
+}) => (
     <NextThemesProvider
         attribute="class"
         defaultTheme="system"
         enableSystem
         storageKey="theme"
+        nonce={nonce}
     >
         {children}
     </NextThemesProvider>

@@ -1,7 +1,9 @@
 'use client';
 
 import { useState, useRef, useEffect, useCallback } from 'react';
+import Image from 'next/image';
 import { useScrollReveal } from './hooks/useScrollReveal';
+import { HorizontalPin, type PinApi } from './partials/HorizontalPin';
 
 type Certificate = {
     id: number;
@@ -107,6 +109,7 @@ const statusHex: Record<Certificate['statusColor'], string> = {
 export const Certificates = () => {
     const [revealRef] = useScrollReveal();
     const trackRef = useRef<HTMLDivElement>(null);
+    const pinRef = useRef<PinApi | null>(null);
     const [activeIndex, setActiveIndex] = useState(0);
     const rafRef = useRef<number | null>(null);
 
@@ -155,9 +158,11 @@ export const Certificates = () => {
         if (!track) return;
 
         track.addEventListener('scroll', updateScrollState, { passive: true });
+        window.addEventListener('scroll', updateScrollState, { passive: true });
         window.addEventListener('resize', updateScrollState);
         return () => {
             track.removeEventListener('scroll', updateScrollState);
+            window.removeEventListener('scroll', updateScrollState);
             window.removeEventListener('resize', updateScrollState);
             if (rafRef.current) cancelAnimationFrame(rafRef.current);
         };
@@ -175,6 +180,12 @@ export const Certificates = () => {
             (cardRect.left - trackRect.left) -
             trackRect.width / 2 +
             cardRect.width / 2;
+
+        const pin = pinRef.current;
+        if (pin?.pinned) {
+            pin.scrollTrackTo(target);
+            return;
+        }
         track.scrollTo({ left: target, behavior: 'smooth' });
     };
 
@@ -190,7 +201,7 @@ export const Certificates = () => {
         <section
             id="certificates"
             ref={revealRef}
-            className="relative w-full overflow-hidden px-0 py-24 sm:py-28 md:py-32"
+            className="relative w-full overflow-x-clip px-0 py-24 sm:py-28 md:py-32"
         >
             <style>{`
                 .cert-track {
@@ -272,232 +283,241 @@ export const Certificates = () => {
                 04
             </div>
 
-            {/* Intro row */}
-            <div className="relative z-10 mx-auto mb-10 grid w-full max-w-[1400px] grid-cols-1 items-end gap-8 px-5 sm:mb-12 sm:px-6 md:mb-16 md:grid-cols-12 md:px-12">
-                <div className="md:col-span-7">
-                    <p
-                        className="mb-5 flex max-w-full items-center gap-3 text-[0.72rem] leading-none text-black/65 dark:text-white/45 smallcaps fade-up sm:mb-6 sm:text-[0.76rem]"
-                        style={{ animationDelay: '0.4s' }}
+            {/* Pinned horizontal scroll: the page keeps scrolling vertically
+                while the plates travel sideways. Falls back to an ordinary
+                swipe carousel under 1024px and for reduced motion. */}
+            <HorizontalPin trackRef={trackRef} apiRef={pinRef}>
+                {/* Intro row */}
+                <div className="relative z-10 mx-auto mb-10 grid w-full max-w-[1400px] grid-cols-1 items-end gap-8 px-5 sm:mb-12 sm:px-6 md:mb-16 md:grid-cols-12 md:px-12">
+                    <div className="md:col-span-7">
+                        <p
+                            className="mb-5 flex max-w-full items-center gap-3 text-[0.72rem] leading-none text-black/65 dark:text-white/45 smallcaps fade-up sm:mb-6 sm:text-[0.76rem]"
+                            style={{ animationDelay: '0.4s' }}
+                        >
+                            <span className="block h-px w-8 shrink-0 bg-black/40 dark:bg-white/25 sm:w-10" />
+                            <span className="min-w-0">Credentials — A Ledger</span>
+                            <span className="hidden shrink-0 font-mono text-black/40 dark:text-white/25 xs:inline">
+                                - 004
+                            </span>
+                        </p>
+
+                        <h2 className="hero-title font-black fade-up" style={{ animationDelay: '0.55s' }}>
+                            <span className="title-word">Things</span>{' '}
+                            <span className="title-word"><em>I&apos;ve</em></span>
+                            <br />
+                            <span className="title-word">
+                                studied
+                                <span className="hero-mark align-top font-normal italic text-black/40 dark:text-white/25">.</span>
+                            </span>
+                        </h2>
+                    </div>
+
+                    <div
+                        className="fade-up md:col-span-5 md:flex md:flex-col md:items-end"
+                        style={{ animationDelay: '0.75s' }}
                     >
-                        <span className="block h-px w-8 shrink-0 bg-black/40 dark:bg-white/25 sm:w-10" />
-                        <span className="min-w-0">Credentials — A Ledger</span>
-                        <span className="hidden shrink-0 font-mono text-black/40 dark:text-white/25 xs:inline">
-                            - 004
-                        </span>
-                    </p>
+                        <p className="font-serif-alt mb-6 max-w-[28rem] text-[1.1rem] italic leading-[1.5] text-black/70 dark:text-white/55 md:text-right md:text-[1.2rem]">
+                            A running ledger of certifications, workshops &amp; assemblies — proof of practice,
+                            not just paper.
+                        </p>
 
-                    <h2 className="hero-title font-black fade-up" style={{ animationDelay: '0.55s' }}>
-                        <span className="title-word">Things</span>{' '}
-                        <span className="title-word"><em>I&apos;ve</em></span>
-                        <br />
-                        <span className="title-word">
-                            studied
-                            <span className="hero-mark align-top font-normal italic text-black/40 dark:text-white/25">.</span>
-                        </span>
-                    </h2>
-                </div>
+                        {/* Carousel controls */}
+                        <div className="flex items-center gap-5">
+                            <span className="font-mono text-[0.72rem] tracking-[0.18em] text-black/55 dark:text-white/40 smallcaps tabular-nums">
+                                <span className="text-black dark:text-white">{String(activeIndex + 1).padStart(2, '0')}</span>
+                                <span className="mx-2 text-black/30 dark:text-white/20">/</span>
+                                <span>{String(certificates.length).padStart(2, '0')}</span>
+                            </span>
 
-                <div
-                    className="fade-up md:col-span-5 md:flex md:flex-col md:items-end"
-                    style={{ animationDelay: '0.75s' }}
-                >
-                    <p className="font-serif-alt mb-6 max-w-[28rem] text-[1.1rem] italic leading-[1.5] text-black/70 dark:text-white/55 md:text-right md:text-[1.2rem]">
-                        A running ledger of certifications, workshops &amp; assemblies — proof of practice,
-                        not just paper.
-                    </p>
-
-                    {/* Carousel controls */}
-                    <div className="flex items-center gap-5">
-                        <span className="font-mono text-[0.72rem] tracking-[0.18em] text-black/55 dark:text-white/40 smallcaps tabular-nums">
-                            <span className="text-black dark:text-white">{String(activeIndex + 1).padStart(2, '0')}</span>
-                            <span className="mx-2 text-black/30 dark:text-white/20">/</span>
-                            <span>{String(certificates.length).padStart(2, '0')}</span>
-                        </span>
-
-                        <div className="flex items-center gap-2">
-                            <button
-                                type="button"
-                                onClick={prev}
-                                disabled={activeIndex === 0}
-                                aria-label="Previous certificate"
-                                className="group relative flex h-10 w-10 items-center justify-center border border-black/40 dark:border-white/30 transition-colors hover:bg-black hover:text-[rgb(244,243,238)] dark:hover:bg-white dark:hover:text-[rgb(13,12,10)] disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-current"
-                            >
-                                <span className="absolute top-0 left-0 h-2 w-2 border-t border-l border-current" />
-                                <span className="absolute bottom-0 right-0 h-2 w-2 border-b border-r border-current" />
-                                <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true">
-                                    <path d="M6 1 L1 6 L6 11" stroke="currentColor" strokeWidth="1.2" fill="none" />
-                                    <path d="M1 6 L15 6" stroke="currentColor" strokeWidth="1.2" />
-                                </svg>
-                            </button>
-                            <button
-                                type="button"
-                                onClick={next}
-                                disabled={activeIndex === certificates.length - 1}
-                                aria-label="Next certificate"
-                                className="group relative flex h-10 w-10 items-center justify-center border border-black/40 dark:border-white/30 transition-colors hover:bg-black hover:text-[rgb(244,243,238)] dark:hover:bg-white dark:hover:text-[rgb(13,12,10)] disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-current"
-                            >
-                                <span className="absolute top-0 right-0 h-2 w-2 border-t border-r border-current" />
-                                <span className="absolute bottom-0 left-0 h-2 w-2 border-b border-l border-current" />
-                                <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true">
-                                    <path d="M10 1 L15 6 L10 11" stroke="currentColor" strokeWidth="1.2" fill="none" />
-                                    <path d="M15 6 L1 6" stroke="currentColor" strokeWidth="1.2" />
-                                </svg>
-                            </button>
+                            <div className="flex items-center gap-2">
+                                <button
+                                    type="button"
+                                    onClick={prev}
+                                    disabled={activeIndex === 0}
+                                    aria-label="Previous certificate"
+                                    className="group relative flex h-10 w-10 items-center justify-center border border-black/40 dark:border-white/30 transition-colors hover:bg-black hover:text-[rgb(244,243,238)] dark:hover:bg-white dark:hover:text-[rgb(13,12,10)] disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-current"
+                                >
+                                    <span className="absolute top-0 left-0 h-2 w-2 border-t border-l border-current" />
+                                    <span className="absolute bottom-0 right-0 h-2 w-2 border-b border-r border-current" />
+                                    <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true">
+                                        <path d="M6 1 L1 6 L6 11" stroke="currentColor" strokeWidth="1.2" fill="none" />
+                                        <path d="M1 6 L15 6" stroke="currentColor" strokeWidth="1.2" />
+                                    </svg>
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={next}
+                                    disabled={activeIndex === certificates.length - 1}
+                                    aria-label="Next certificate"
+                                    className="group relative flex h-10 w-10 items-center justify-center border border-black/40 dark:border-white/30 transition-colors hover:bg-black hover:text-[rgb(244,243,238)] dark:hover:bg-white dark:hover:text-[rgb(13,12,10)] disabled:cursor-not-allowed disabled:opacity-30 disabled:hover:bg-transparent disabled:hover:text-current"
+                                >
+                                    <span className="absolute top-0 right-0 h-2 w-2 border-t border-r border-current" />
+                                    <span className="absolute bottom-0 left-0 h-2 w-2 border-b border-l border-current" />
+                                    <svg width="16" height="12" viewBox="0 0 16 12" fill="none" aria-hidden="true">
+                                        <path d="M10 1 L15 6 L10 11" stroke="currentColor" strokeWidth="1.2" fill="none" />
+                                        <path d="M15 6 L1 6" stroke="currentColor" strokeWidth="1.2" />
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            {/* ── Carousel ── */}
-            <div
-                ref={trackRef}
-                className="cert-track relative z-10 fade-up"
-                style={{ animationDelay: '0.85s' }}
-                tabIndex={0}
-                onKeyDown={onKeyDown}
-                role="region"
-                aria-label="Certificates carousel"
-                aria-roledescription="carousel"
-            >
-                {certificates.map((c, i) => {
-                    const isActive = i === activeIndex;
-                    return (
-                        <article
-                            key={c.id}
-                            className="cert-card"
-                            aria-label={`Certificate ${i + 1} of ${certificates.length}: ${c.title}`}
-                            aria-roledescription="slide"
-                        >
-                            <div className="relative">
-                                {/* Back plates */}
-                                <div
-                                    className="absolute inset-0 translate-x-[10px] translate-y-[10px] border border-black/10 dark:border-white/10"
-                                    aria-hidden="true"
-                                />
-                                <div
-                                    className="absolute inset-0 translate-x-[5px] translate-y-[5px] border border-black/15 dark:border-white/10 bg-black/[0.02] dark:bg-white/[0.02]"
-                                    aria-hidden="true"
-                                />
+                {/* ── Carousel ── */}
+                <div
+                    ref={trackRef}
+                    className="cert-track relative z-10 fade-up"
+                    style={{ animationDelay: '0.85s' }}
+                    tabIndex={0}
+                    onKeyDown={onKeyDown}
+                    role="region"
+                    aria-label="Certificates carousel"
+                    aria-roledescription="carousel"
+                >
+                    {certificates.map((c, i) => {
+                        const isActive = i === activeIndex;
+                        return (
+                            <article
+                                key={c.id}
+                                className="cert-card"
+                                aria-label={`Certificate ${i + 1} of ${certificates.length}: ${c.title}`}
+                                aria-roledescription="slide"
+                            >
+                                <div className="relative">
+                                    {/* Back plates */}
+                                    <div
+                                        className="absolute inset-0 translate-x-[10px] translate-y-[10px] border border-black/10 dark:border-white/10"
+                                        aria-hidden="true"
+                                    />
+                                    <div
+                                        className="absolute inset-0 translate-x-[5px] translate-y-[5px] border border-black/15 dark:border-white/10 bg-black/[0.02] dark:bg-white/[0.02]"
+                                        aria-hidden="true"
+                                    />
 
-                                {/* Main card */}
-                                <div className="relative flex min-h-[560px] flex-col border border-black/30 dark:border-white/20 bg-[rgb(240,238,230)] dark:bg-[rgb(22,21,18)] p-6 sm:p-7">
-                                    {/* Corner brackets */}
-                                    <span className="absolute top-0 left-0 h-3 w-3 border-t border-l border-black dark:border-white/60" />
-                                    <span className="absolute top-0 right-0 h-3 w-3 border-t border-r border-black dark:border-white/60" />
-                                    <span className="absolute bottom-0 left-0 h-3 w-3 border-b border-l border-black dark:border-white/60" />
-                                    <span className="absolute bottom-0 right-0 h-3 w-3 border-b border-r border-black dark:border-white/60" />
+                                    {/* Main card */}
+                                    <div className="relative flex min-h-[560px] flex-col border border-black/30 dark:border-white/20 bg-[rgb(240,238,230)] dark:bg-[rgb(22,21,18)] p-6 sm:p-7">
+                                        {/* Corner brackets */}
+                                        <span className="absolute top-0 left-0 h-3 w-3 border-t border-l border-black dark:border-white/60" />
+                                        <span className="absolute top-0 right-0 h-3 w-3 border-t border-r border-black dark:border-white/60" />
+                                        <span className="absolute bottom-0 left-0 h-3 w-3 border-b border-l border-black dark:border-white/60" />
+                                        <span className="absolute bottom-0 right-0 h-3 w-3 border-b border-r border-black dark:border-white/60" />
 
-                                    {/* Top meta */}
-                                    <div className="flex items-center justify-between gap-4 font-mono text-[0.6rem] leading-none tracking-[0.18em] text-black/50 dark:text-white/40 smallcaps">
-                                        <span className="flex items-center gap-2">
-                                            <span className="block h-px w-5 bg-black/30 dark:bg-white/20" />
-                                            No. {String(c.id).padStart(3, '0')}
-                                        </span>
-                                        <span className="flex items-center gap-2">
-                                            <span
-                                                className="status-dot block h-1.5 w-1.5 rounded-full"
-                                                style={{ background: statusHex[c.statusColor], color: statusHex[c.statusColor] }}
-                                            />
-                                            {c.status ?? 'Valid'}
-                                        </span>
-                                    </div>
-
-                                    {/* Logo plate */}
-                                    <div className="my-7 flex h-20 items-center justify-center border-y border-black/10 dark:border-white/10 bg-[rgba(0,0,0,0.015)] dark:bg-white/85">
-                                        <img
-                                            src={c.logo}
-                                            alt={`${c.provider} logo`}
-                                            className="max-h-9 max-w-[60%] object-contain opacity-85"
-                                            loading="lazy"
-                                            onError={(e) => {
-                                                (e.currentTarget as HTMLImageElement).style.display = 'none';
-                                            }}
-                                        />
-                                    </div>
-
-                                    {/* Provider */}
-                                    <p className="font-mono text-[0.62rem] tracking-[0.18em] text-black/55 dark:text-white/40 smallcaps">
-                                        Issued by · {c.provider}
-                                    </p>
-
-                                    {/* Title */}
-                                    <h3 className="font-serif-alt mt-2 text-[1.5rem] italic leading-[1.2] text-black dark:text-white/90 sm:text-[1.65rem]">
-                                        {c.title}
-                                    </h3>
-
-                                    {/* Description */}
-                                    <p style={{ fontFamily: 'Inter Variable' }} className="mt-3 text-[0.88rem] leading-[1.6] text-black/65 dark:text-white/55">
-                                        {c.description}
-                                    </p>
-
-                                    {/* Skills */}
-                                    <div className="mt-5 mb-5 flex flex-wrap gap-1.5">
-                                        {c.skills.map((s) => (
-                                            <span
-                                                key={s}
-                                                className="border border-black/25 dark:border-white/20 px-2 py-1 font-mono text-[0.58rem] tracking-[0.14em] text-black/65 dark:text-white/55 smallcaps"
-                                            >
-                                                {s}
+                                        {/* Top meta */}
+                                        <div className="flex items-center justify-between gap-4 font-mono text-[0.6rem] leading-none tracking-[0.18em] text-black/50 dark:text-white/40 smallcaps">
+                                            <span className="flex items-center gap-2">
+                                                <span className="block h-px w-5 bg-black/30 dark:bg-white/20" />
+                                                No. {String(c.id).padStart(3, '0')}
                                             </span>
-                                        ))}
-                                    </div>
-
-                                    {/* Spacer pushes footer down */}
-                                    <div className="mt-auto" />
-
-                                    {/* Footer */}
-                                    <div className="flex items-end justify-between gap-4 border-t border-black/15 dark:border-white/10 pt-4">
-                                        <div>
-                                            <div className="font-mono text-[0.55rem] tracking-[0.2em] text-black/40 dark:text-white/30 smallcaps">
-                                                Issued
-                                            </div>
-                                            <div className="font-serif-alt mt-0.5 text-[1rem] italic text-black/75 dark:text-white/60">
-                                                {c.issueDate}
-                                            </div>
+                                            <span className="flex items-center gap-2">
+                                                <span
+                                                    className="status-dot block h-1.5 w-1.5 rounded-full"
+                                                    style={{ background: statusHex[c.statusColor], color: statusHex[c.statusColor] }}
+                                                />
+                                                {c.status ?? 'Valid'}
+                                            </span>
                                         </div>
-                                        <a
-                                            href={c.certificateLink}
-                                            tabIndex={isActive ? 0 : -1}
-                                            className="group inline-flex items-center gap-2 border-b border-black/40 dark:border-white/30 pb-0.5 text-[0.7rem] smallcaps transition-colors hover:border-black dark:hover:border-white"
-                                        >
-                                            View Certificate
-                                            <span className="transition-transform group-hover:translate-x-1">→</span>
-                                        </a>
+
+                                        {/* Logo plate */}
+                                        <div className="my-7 flex h-20 items-center justify-center border-y border-black/10 dark:border-white/10 bg-[rgba(0,0,0,0.015)] dark:bg-white/85">
+                                            <span className="relative block h-9 w-[60%]">
+                                                <Image
+                                                    src={c.logo}
+                                                    alt={`${c.provider} logo`}
+                                                    fill
+                                                    sizes="(max-width: 640px) 50vw, 240px"
+                                                    unoptimized={c.logo.endsWith('.svg') || c.logo.startsWith('http')}
+                                                    className="object-contain opacity-85"
+                                                    onError={(e) => {
+                                                        (e.currentTarget as HTMLImageElement).style.display = 'none';
+                                                    }}
+                                                />
+                                            </span>
+                                        </div>
+
+                                        {/* Provider */}
+                                        <p className="font-mono text-[0.62rem] tracking-[0.18em] text-black/55 dark:text-white/40 smallcaps">
+                                            Issued by · {c.provider}
+                                        </p>
+
+                                        {/* Title */}
+                                        <h3 className="font-serif-alt mt-2 text-[1.5rem] italic leading-[1.2] text-black dark:text-white/90 sm:text-[1.65rem]">
+                                            {c.title}
+                                        </h3>
+
+                                        {/* Description */}
+                                        <p style={{ fontFamily: 'Inter Variable' }} className="mt-3 text-[0.88rem] leading-[1.6] text-black/65 dark:text-white/55">
+                                            {c.description}
+                                        </p>
+
+                                        {/* Skills */}
+                                        <div className="mt-5 mb-5 flex flex-wrap gap-1.5">
+                                            {c.skills.map((s) => (
+                                                <span
+                                                    key={s}
+                                                    className="border border-black/25 dark:border-white/20 px-2 py-1 font-mono text-[0.58rem] tracking-[0.14em] text-black/65 dark:text-white/55 smallcaps"
+                                                >
+                                                    {s}
+                                                </span>
+                                            ))}
+                                        </div>
+
+                                        {/* Spacer pushes footer down */}
+                                        <div className="mt-auto" />
+
+                                        {/* Footer */}
+                                        <div className="flex items-end justify-between gap-4 border-t border-black/15 dark:border-white/10 pt-4">
+                                            <div>
+                                                <div className="font-mono text-[0.55rem] tracking-[0.2em] text-black/40 dark:text-white/30 smallcaps">
+                                                    Issued
+                                                </div>
+                                                <div className="font-serif-alt mt-0.5 text-[1rem] italic text-black/75 dark:text-white/60">
+                                                    {c.issueDate}
+                                                </div>
+                                            </div>
+                                            <a
+                                                href={c.certificateLink}
+                                                tabIndex={isActive ? 0 : -1}
+                                                className="group inline-flex items-center gap-2 border-b border-black/40 dark:border-white/30 pb-0.5 text-[0.7rem] smallcaps transition-colors hover:border-black dark:hover:border-white"
+                                            >
+                                                View Certificate
+                                                <span className="transition-transform group-hover:translate-x-1">→</span>
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </article>
-                    );
-                })}
-            </div>
-
-            {/* Segmented progress + meta */}
-            <div className="relative z-10 mx-auto mt-10 flex w-full max-w-[1400px] flex-col items-center gap-6 px-5 sm:mt-12 sm:px-6 md:flex-row md:justify-between md:px-12">
-                {/* Segments */}
-                <div className="flex items-center gap-2.5">
-                    {certificates.map((_, i) => (
-                        <button
-                            key={i}
-                            type="button"
-                            onClick={() => scrollToIndex(i)}
-                            aria-label={`Go to certificate ${i + 1}`}
-                            aria-current={i === activeIndex}
-                            className="group flex h-4 items-center"
-                        >
-                            <span
-                                className={`block h-px transition-all duration-500 ${i === activeIndex
-                                    ? 'w-12 bg-black dark:bg-white'
-                                    : 'w-6 bg-black/25 dark:bg-white/20 group-hover:bg-black/50 dark:group-hover:bg-white/40'
-                                    }`}
-                            />
-                        </button>
-                    ))}
+                            </article>
+                        );
+                    })}
                 </div>
 
-                <span className="font-mono text-[0.62rem] tracking-[0.18em] text-black/45 dark:text-white/30 smallcaps">
-                    Drag · Scroll · or use ← →
-                </span>
-            </div>
+                {/* Segmented progress + meta */}
+                <div className="relative z-10 mx-auto mt-10 flex w-full max-w-[1400px] flex-col items-center gap-6 px-5 sm:mt-12 sm:px-6 md:flex-row md:justify-between md:px-12">
+                    {/* Segments */}
+                    <div className="flex items-center gap-2.5">
+                        {certificates.map((_, i) => (
+                            <button
+                                key={i}
+                                type="button"
+                                onClick={() => scrollToIndex(i)}
+                                aria-label={`Go to certificate ${i + 1}`}
+                                aria-current={i === activeIndex}
+                                className="group flex h-4 items-center"
+                            >
+                                <span
+                                    className={`block h-px transition-all duration-500 ${i === activeIndex
+                                        ? 'w-12 bg-black dark:bg-white'
+                                        : 'w-6 bg-black/25 dark:bg-white/20 group-hover:bg-black/50 dark:group-hover:bg-white/40'
+                                        }`}
+                                />
+                            </button>
+                        ))}
+                    </div>
+
+                    <span className="font-mono text-[0.62rem] tracking-[0.18em] text-black/45 dark:text-white/30 smallcaps">
+                        Drag · Scroll · or use ← →
+                    </span>
+                </div>
+            </HorizontalPin>
 
             {/* Bottom meta */}
             <div

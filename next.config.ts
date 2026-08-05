@@ -20,6 +20,12 @@ const nextConfig: NextConfig = {
      match the uploaded source maps. Derived, never set by hand. */
   ...(deploymentId ? { env: { NEXT_PUBLIC_DEPLOYMENT_ID: deploymentId } } : {}),
 
+  /* The portfolio is image-heavy — several screenshots are 1–2.4MB as
+     authored — so let the optimiser reach for AVIF before WebP. */
+  images: {
+    formats: ['image/avif', 'image/webp'],
+  },
+
   /* Sentry needs these to turn minified stack traces back into source lines. */
   productionBrowserSourceMaps: true,
 };

@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
+import { headers } from 'next/headers';
 import { Bricolage_Grotesque, Fraunces, Instrument_Serif } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/next';
 import { ThemeProvider } from '../context/ThemeContext';
@@ -66,7 +67,14 @@ export const metadata: Metadata = {
         title: TITLE,
         description:
             'Explore the portfolio of Gian Raphael Alcantara — showcasing software engineering projects, web applications, and technical expertise.',
-        images: [{ url: '/og-image.png' }],
+        images: [
+            {
+                url: '/og-image.png',
+                width: 1200,
+                height: 630,
+                alt: 'Gian Raphael Alcantara — software engineering, built from Manila.',
+            },
+        ],
         siteName: 'gianraphael.dev',
         locale: 'en_PH',
     },
@@ -74,7 +82,7 @@ export const metadata: Metadata = {
         card: 'summary_large_image',
         title: TITLE,
         description: 'Official developer portfolio of Gian Raphael Alcantara.',
-        images: ['/og-image.png'],
+        images: [{ url: '/og-image.png', alt: 'Gian Raphael Alcantara — portfolio' }],
     },
 };
 
@@ -89,7 +97,7 @@ const personJsonLd = {
     '@type': 'Person',
     name: 'Gian Raphael Alcantara',
     url: SITE_URL,
-    image: `${SITE_URL}/profile.jpg`,
+    image: `${SITE_URL}/images/profile-pic.jpg`,
     jobTitle: 'Software Engineer',
     description: 'Full Stack Developer and BSIT Software Engineering student.',
     sameAs: [
@@ -106,7 +114,11 @@ const personJsonLd = {
     ],
 };
 
-export default function RootLayout({ children }: { children: ReactNode }) {
+export default async function RootLayout({ children }: { children: ReactNode }) {
+    /* Set by middleware.ts. Next already stamps its own scripts with this;
+       everything below is what we emit by hand. */
+    const nonce = (await headers()).get('x-nonce') ?? undefined;
+
     return (
         <html
             lang="en-PH"
@@ -121,13 +133,20 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                     type="font/ttf"
                     crossOrigin=""
                 />
+                {/* Browsers blank a script's `nonce` content attribute once it
+                    has been parsed (so a CSS attribute selector can't exfiltrate
+                    it), which makes the hydrated attribute look mismatched even
+                    though the header and the element agreed. next-themes marks
+                    its own nonced script the same way. */}
                 <script
                     type="application/ld+json"
+                    nonce={nonce}
+                    suppressHydrationWarning
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
                 />
             </head>
             <body>
-                <ThemeProvider>{children}</ThemeProvider>
+                <ThemeProvider nonce={nonce}>{children}</ThemeProvider>
                 <noscript>You need to enable JavaScript to run this website.</noscript>
                 <Analytics />
             </body>

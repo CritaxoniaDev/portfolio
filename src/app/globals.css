@@ -488,6 +488,65 @@
     @apply italic font-normal;
   }
 
+  /* ────────────────────────────────────────────
+     Pinned stage — everything has to fit one screen while the section is
+     pinned, so the chapter heading and the carousel's padding tighten up.
+  ──────────────────────────────────────────── */
+  [data-pinned] .hero-title {
+    font-size: clamp(2.25rem, 3.9vw, 3.75rem);
+  }
+
+  [data-pinned] .cert-track {
+    padding-block: 16px;
+  }
+
+  /* ────────────────────────────────────────────
+     Parallax layers — ParallaxLayers.tsx writes --parallax-y. Tailwind v4
+     puts its own offsets on the separate `translate` property, so this
+     transform composes with utilities like -translate-x-1/2 instead of
+     overwriting them.
+  ──────────────────────────────────────────── */
+  .ghost-number,
+  [data-parallax],
+  [style*='radial-gradient(circle'] {
+    transform: translate3d(0, var(--parallax-y, 0px), 0);
+  }
+
+  /* ────────────────────────────────────────────
+     Section reveals — direction comes from --reveal-from, set per section
+     in app/page.tsx. Only elements the script arms are ever hidden, so
+     server-rendered and JS-less pages stay fully visible.
+  ──────────────────────────────────────────── */
+  .section-reveal[data-armed='true'] {
+    overflow-x: clip;
+  }
+
+  .section-reveal[data-armed='true'] > * {
+    opacity: 0;
+    transform: var(--reveal-from, translate3d(0, 3.5rem, 0));
+    will-change: transform, opacity;
+    transition: opacity 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
+      transform 0.95s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  .section-reveal[data-instant='true'] > * {
+    transition: none !important;
+  }
+
+  .section-reveal[data-armed='true'][data-revealed='true'] > * {
+    opacity: 1;
+    transform: none;
+    will-change: auto;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .section-reveal[data-armed='true'] > * {
+      opacity: 1 !important;
+      transform: none !important;
+      transition: none !important;
+    }
+  }
+
   .smallcaps {
     font-variant-caps: all-small-caps;
     letter-spacing: 0.12em;

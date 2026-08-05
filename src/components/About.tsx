@@ -1,6 +1,14 @@
 'use client';
 
+import dynamic from 'next/dynamic';
 import { useScrollReveal } from './hooks/useScrollReveal';
+
+/* three.js is ~160KB gzipped, so it loads only when this section is reached —
+   never on first paint, and never during SSR. */
+const LaptopSpecimen = dynamic(
+    () => import('./three/LaptopSpecimen').then(m => m.LaptopSpecimen),
+    { ssr: false }
+);
 
 export const About = () => {
     const [ref] = useScrollReveal();
@@ -13,27 +21,10 @@ export const About = () => {
         >
             {/* Blob-specific keyframes (kept local so the section is self-contained) */}
             <style>{`
-                @keyframes blob-morph-a {
-                    0%, 100% { border-radius: 62% 38% 30% 70% / 60% 32% 68% 40%; }
-                    25%      { border-radius: 30% 70% 70% 30% / 50% 60% 40% 50%; }
-                    50%      { border-radius: 50% 50% 28% 72% / 38% 52% 48% 62%; }
-                    75%      { border-radius: 68% 32% 58% 42% / 64% 46% 54% 36%; }
-                }
-                @keyframes blob-morph-b {
-                    0%, 100% { border-radius: 42% 58% 62% 38% / 44% 50% 50% 56%; }
-                    33%      { border-radius: 72% 28% 50% 50% / 30% 62% 38% 70%; }
-                    66%      { border-radius: 48% 52% 70% 30% / 60% 38% 62% 40%; }
-                }
-                @keyframes blob-spin       { from { transform: translate(-50%, -50%) rotate(0); } to { transform: translate(-50%, -50%) rotate(360deg); } }
-                @keyframes blob-spin-rev   { from { transform: translate(-50%, -50%) rotate(360deg); } to { transform: translate(-50%, -50%) rotate(0); } }
-                @keyframes blob-pulse      { 0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.85; } 50% { transform: translate(-50%, -50%) scale(1.18); opacity: 0.55; } }
                 @keyframes blob-float      { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(-10px, -14px); } }
                 @keyframes orbit-spin      { from { transform: rotate(0); } to { transform: rotate(360deg); } }
                 @keyframes speck-drift     { 0%, 100% { transform: translate(0, 0); opacity: 0.5; } 50% { transform: translate(6px, -8px); opacity: 0.9; } }
 
-                .blob-a       { animation: blob-morph-a 14s ease-in-out infinite, blob-spin 38s linear infinite; }
-                .blob-b       { animation: blob-morph-b 18s ease-in-out infinite, blob-spin-rev 28s linear infinite; }
-                .blob-core    { animation: blob-pulse 5.5s ease-in-out infinite; }
                 .blob-stage   { animation: blob-float 11s ease-in-out infinite; }
                 .blob-orbit   { animation: orbit-spin 42s linear infinite; transform-origin: center; }
                 .speck        { animation: speck-drift 7s ease-in-out infinite; }
@@ -41,7 +32,7 @@ export const About = () => {
                 .speck.s3     { animation-delay: -4s; animation-duration: 11s; }
 
                 @media (prefers-reduced-motion: reduce) {
-                    .blob-a, .blob-b, .blob-core, .blob-stage, .blob-orbit, .speck {
+                    .blob-stage, .blob-orbit, .speck {
                         animation: none !important;
                     }
                 }
@@ -72,7 +63,7 @@ export const About = () => {
                 </span>
                 <span className="hidden shrink-0 sm:inline">About / Vol. 02</span>
                 <span className="hidden shrink-0 font-mono tracking-[0.12em] xs:inline">
-                    MMXXIV
+                    MMXXVI
                 </span>
             </div>
 
@@ -97,20 +88,6 @@ export const About = () => {
             {/* Ghost background number */}
             <div className="ghost-number absolute left-1/2 top-[46%] -translate-x-1/2 -translate-y-1/2 select-none font-black leading-none pointer-events-none">
                 02
-            </div>
-
-            {/* Floating italic accent */}
-            <div
-                className="absolute left-12 top-28 hidden items-center gap-3 fade-up xl:flex"
-                style={{ animationDelay: '0.7s' }}
-            >
-                <span className="font-serif-alt text-2xl italic text-black/60 dark:text-white/45">
-                    notes from a maker
-                </span>
-                <svg width="40" height="40" viewBox="0 0 40 40" fill="none" className="opacity-40" aria-hidden="true">
-                    <path d="M5 5 Q 20 35, 35 5" stroke="currentColor" strokeWidth="1" fill="none" strokeDasharray="2 3" />
-                    <circle cx="5" cy="5" r="2" fill="currentColor" />
-                </svg>
             </div>
 
             {/* Main content */}
@@ -213,7 +190,7 @@ export const About = () => {
                             <span className="block h-px w-6 bg-black/30 dark:bg-white/20" />
                             Fig. 02 / Specimen
                         </span>
-                        <span className="text-black/35 dark:text-white/25">Living · Form</span>
+                        <span className="text-black/35 dark:text-white/25">Live · WebGL</span>
                     </div>
 
                     {/* Blob stage */}
@@ -236,39 +213,18 @@ export const About = () => {
                                 </g>
                             </svg>
 
-                            {/* Outer blob — warm tan (kept across themes) */}
+                            {/* Aura — also what shows if WebGL is unavailable */}
                             <div
-                                className="blob-a absolute left-1/2 top-1/2 h-[78%] w-[78%] mix-blend-multiply dark:mix-blend-screen"
+                                className="pointer-events-none absolute inset-[6%] rounded-full opacity-50 blur-[26px]"
                                 style={{
                                     background:
-                                        'radial-gradient(circle at 30% 30%, rgba(190,158,114,0.65), rgba(150,128,92,0.4) 55%, rgba(110,95,72,0.28) 85%)',
-                                    transform: 'translate(-50%, -50%)',
+                                        'radial-gradient(circle at 34% 32%, rgba(190,158,114,0.34), rgba(150,160,140,0.18) 52%, transparent 74%)',
                                 }}
+                                aria-hidden="true"
                             />
 
-                            {/* Middle blob — muted sage */}
-                            <div
-                                className="blob-b absolute left-1/2 top-1/2 h-[58%] w-[58%] mix-blend-multiply dark:mix-blend-screen"
-                                style={{
-                                    background:
-                                        'radial-gradient(circle at 70% 35%, rgba(158,170,148,0.7), rgba(108,122,100,0.4) 55%, rgba(70,82,68,0.3) 85%)',
-                                    transform: 'translate(-50%, -50%)',
-                                }}
-                            />
-
-                            {/* Innermost pulsing core — flips colour in dark */}
-                            <div
-                                className="blob-core absolute left-1/2 top-1/2 h-[26%] w-[26%] rounded-full"
-                                style={{
-                                    background:
-                                        'radial-gradient(circle, var(--blob-core-c, rgba(10,10,10,0.88)), var(--blob-core-c2, rgba(10,10,10,0.45)) 55%, transparent 80%)',
-                                    filter: 'blur(2px)',
-                                    transform: 'translate(-50%, -50%)',
-                                }}
-                            />
-
-                            {/* Grain overlay on blob area */}
-                            <div className="absolute inset-0 grain rounded-[40%] pointer-events-none opacity-60" />
+                            {/* Live specimen */}
+                            <LaptopSpecimen />
 
                             {/* Floating specks — currentColor-driven */}
                             <span
@@ -301,15 +257,24 @@ export const About = () => {
                         </div>
                     </div>
 
+                    {/* Specimen readout */}
+                    <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-[0.55rem] leading-none tracking-[0.18em] text-black/40 dark:text-white/25 smallcaps">
+                        <span>MacBook Pro 14&Prime;</span>
+                        <span aria-hidden="true">/</span>
+                        <span className="tabular-nums">3024 &times; 1964</span>
+                        <span aria-hidden="true">/</span>
+                        <span>Live canvas texture</span>
+                    </div>
+
                     {/* Caption */}
-                    <div className="mt-5 flex items-start justify-between gap-6">
+                    <div className="mt-4 flex items-start justify-between gap-6">
                         <p className="font-serif-alt max-w-[18rem] text-[1.05rem] italic leading-[1.35] text-black/60 dark:text-white/45">
-                            Fig. 02 — a study in<br />
-                            motion &amp; intent.
+                            Fig. 02 — the machine,<br />
+                            mid-thought.
                         </p>
                         <div className="shrink-0 text-right">
                             <div className="font-mono text-[0.6rem] leading-none tracking-[0.18em] text-black/40 dark:text-white/30 smallcaps">
-                                Observed in studio
+                                Rendered in WebGL
                             </div>
                             <div className="font-serif-alt mt-1.5 text-base italic text-black/40 dark:text-white/30">
                                 — gra
